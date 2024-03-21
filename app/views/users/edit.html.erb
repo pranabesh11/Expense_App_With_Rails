@@ -1,0 +1,30 @@
+<h1>EDIT THE USER HERE !</h1>
+<h1><%= @personnel.id%></h1>
+
+
+<%= form_tag "personnel_edit" do %>
+    <div>
+        <%=hidden_field_tag "personnel_id", @personnel.id%>
+    </div>
+    <div>
+        <%= label_tag :name, 'Name' %>
+        <%= text_field_tag "name", @personnel.name, autofocus: true %>
+    </div>
+    <div>
+        <%= label_tag :email, 'Email' %>
+        <%= text_field_tag "email" , @personnel.email%>
+    </div>
+    
+    <!-- <div>
+        <%= label_tag :password, 'Password' %>
+        <%= password_field_tag "password", @personnel.password%>
+    </div>
+    <div>
+        <%= label_tag :password_confirmation, 'Password Confirmation' %>
+        <%= password_field_tag :password_confirmation %>
+    </div>
+    -->
+    <div>
+        <%= submit_tag "UPDATE USER" %>
+    </div>
+<% end %>

@@ -1,0 +1,443 @@
+<%= link_to "DON'T WANT TO ADD ANY EXPENSE" , users_home_path%>
+
+<h1>hello : <%= @type%></h1>
+
+<h1>ADD ANY EXPENSE HERE</h1>
+<p>User ID: <%= @personnel_id%></p>
+
+<%# this is css only for dropdown menu %>
+<style>
+      .dropdown {
+        position: relative;
+        width: 200px;
+        border: 1px solid red;
+      }
+
+      .dropdown-field {
+        padding: 10px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        font-size: large;
+        
+      }
+
+      .dropdown-list {
+        position: absolute;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        z-index: 100;
+        
+      }
+
+      .search-box {
+        width: calc(100% - 40px);
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #ddd;
+        background-color: rgb(168, 223, 168);
+        border-radius: 10px;
+      }
+
+      .dropdown-item {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+        
+      }
+
+      .dropdown-item:hover {
+        background-color: #f6f6f6;
+      }
+      #select-all-btn{
+        padding: 10px;
+        cursor: pointer;
+        width: 200px;
+        border-bottom: 1px solid #eee;
+        background-color: aquamarine;
+        border-style: none;
+      }
+      /* this is for last form */
+      .custom-dropdown {
+            position: relative;
+            width: 200px;
+            border: 1px solid red;
+            margin: 5px;
+        }
+
+        .dropdown-field-custom {
+            padding: 10px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-size: large;
+            margin: 10px;
+        }
+
+        .dropdown-list-custom {
+            position: absolute;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: none; /* Initially hidden */
+        }
+
+        .search-box-custom {
+            width: calc(100% - 50px);
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            background-color: rgb(168, 223, 168);
+            border-radius: 10px;
+        }
+
+        .dropdown-item-custom {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-item-custom:hover {
+            background-color: #f6f6f6;
+        }
+
+        #data-display-custom {
+            margin-top: 20px;
+            border-top: 2px solid #000;
+            padding-top: 10px;
+        }
+        .numberFieldCustom{
+            margin: 5px;
+        }
+        .remove-btn-custom{
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+      /* this is end of last form */
+    </style>
+
+
+
+
+
+
+
+<% if @type == 'personal_expense' %>
+
+  <%=  'form1' %>
+  <%# this is starting of this form %>
+  <%= form_tag "create_new_expense" do %>
+
+    <%=hidden_field_tag "personnel_id", @personnel_id%>
+    <div class="field">
+      <%= label_tag(:income_or_expense, "Income or Expense:") %>
+      <%= radio_button_tag(:income_or_expense, 'income') %>
+      <%= label_tag(:income_or_expense_income, "Income") %>
+      <%= radio_button_tag(:income_or_expense, 'expense') %>
+      <%= label_tag(:income_or_expense_expense, "Expense") %>
+    </div>
+    <div class="field">
+      <%= label_tag(:date_and_time, "Date and Time:") %>
+      <%= datetime_field_tag(:date_and_time) %>
+    </div>
+    <div class="field">
+      <%= label_tag(:category, "Category:") %>
+      <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
+    </div>
+    <div class="field">
+      <%= label_tag(:payment_type, "Payment Type:") %>
+      <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
+    </div>
+    <!--this is for new form-->
+
+      <div id="forms-container">
+        <div class="form-group" id="form-group-0">
+          <%= label_tag 'field_one[0]', 'Item Name:' %>
+          <%= text_field_tag 'field_one[]', nil, id: 'field_one_0' %>
+          <%= label_tag 'field_two[0]', 'Amount:' %>
+          <%= number_field_tag 'field_two[]', nil, id: 'field_two_0' %>     
+        </div>
+      </div>
+      <%= button_tag 'Add Another Form', type: 'button', id: 'add-form-btn', class: 'btn btn-primary' %>
+
+    <!--end of this form-->
+    <div class="field">
+      <%= label_tag(:remarks, "Remarks:") %>
+      <%= text_field_tag(:remarks) %>
+    </div>
+
+    <%= submit_tag("Create Item") %>
+  <% end %>
+
+
+
+
+  <%# this is end of this form %>
+<% elsif @type == 'diff_ex_&_all_users' %>
+  <%=  'form2' %>
+  <%# this is form for second button %>
+  
+  <%= form_tag "create_new_expense" do %>
+
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%=hidden_field_tag "personnel_id",@user_id%>
+     <div>
+        <%= label_tag :date, 'Date' %>
+        <%= date_field_tag :date, nil %>
+    </div>
+    <div>
+        <%= label_tag :remarks, 'remarks' %>
+        <%= text_field_tag :remarks %>
+    </div>
+   
+    <div>
+        <%= label_tag :item_name, 'Item-Name' %>
+        <%= text_field_tag :item_name, nil %>
+    </div>
+    <div>
+        <%= label_tag :amount, 'amount' %>
+        <%= text_field_tag :amount %>
+    </div>
+    <div>
+        <%= label_tag :expense_of_current_user, 'expense_of_current_user' %>
+        <%= text_field_tag :expense_of_current_user %>
+    </div>
+    <div>
+      <%= label_tag :lend, 'Yes' %>
+      <%= radio_button_tag :lend, true %>
+      <%= label_tag :lend, 'No' %>
+      <%= radio_button_tag :lend, false %>
+    </div>
+    
+    <label>text goes here</label>
+    <input type="text" name="extra">
+    <!--this is for new form-->
+
+    <div id="forms-container">
+      <div class="form-group" id="form-group-0">
+        <%= label_tag 'field_one[0]', 'Field One' %>
+        <%= text_field_tag 'field_one[]', nil, id: 'field_one_0' %>
+
+        <%= label_tag 'field_two[0]', 'Field Two' %>
+        <%= text_field_tag 'field_two[]', nil, id: 'field_two_0' %>
+        
+      </div>
+    </div>
+    <%= button_tag 'Add Another Form', type: 'button', id: 'add-form-btn', class: 'btn btn-primary' %>
+
+    <!--end of this form-->
+    <div>
+        <%= submit_tag "ADD !" %>
+    </div>
+  <% end %>
+
+  <%# this is end of second form %>
+
+
+
+
+
+
+
+<% elsif @type == 'split_bill' %>
+  <%=  'form3' %>
+  <%# this is for split bill form %>
+  <%= form_tag "create_new_expense" do %>
+    
+    <%=hidden_field_tag "personnel_id", @personnel_id%>
+    <%# this is for select tag %>
+
+    <div class="dropdown">
+      <div id="dropdown-field" class="dropdown-field">Select a name</div>
+      <div id="dropdown-list" class="dropdown-list" style="display:none;">
+        <%= text_field_tag :search, nil, placeholder: "Search...", class: "search-box", id: "search-box" %>
+        <% @users.each_with_index do |item, index| %>
+          <div class="dropdown-item">
+            <%= check_box_tag "items[]", item.name, false, id: "item#{index}" %>
+            <%= label_tag "item#{index}", item.name %>
+          </div>
+        <% end %>
+
+        <button id="select-all-btn">Select All</button>
+      </div>
+    </div>
+
+    <%# end of select tag %>
+    <div class="field">
+      <%= label_tag(:date_and_time, "Date and Time:") %>
+      <%= datetime_field_tag(:date_and_time) %>
+    </div>
+
+    <div class="field">
+      <%= label_tag(:category, "Category:") %>
+      <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
+    </div>
+
+    <div class="field">
+      <%= label_tag(:payment_type, "Payment Type:") %>
+      <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
+    </div>
+
+    <!--this is for new form-->
+      <div id="forms-container">
+        <div class="form-group" id="form-group-0">
+          <%= label_tag 'field_one[0]', 'Item Name:' %>
+          <%= text_field_tag 'field_one[]', nil, id: 'field_one_0' %>
+          <%= label_tag 'field_two[0]', 'Amount:' %>
+          <%= number_field_tag 'field_two[]', nil, id: 'field_two_0' %> 
+        </div>
+      </div>
+      <%= button_tag 'Add Another Form', type: 'button', id: 'add-form-btn', class: 'btn btn-primary' %>
+    <!--end of this form-->
+    <div class="field">
+      <%= label_tag(:remarks, "Remarks:") %>
+      <%= text_field_tag(:remarks) %>
+    </div>
+    <%= submit_tag("SPLIT_BILL") %>
+  <% end %>
+  <%# this is end of split bill  form %>
+
+
+
+
+
+
+
+
+<% elsif @type == 'split_bill_person_wise' %>
+  <%=  'form4' %>
+  
+  <%# this is form for last form %>
+  <%=form_tag "create_new_expense" do%>
+  <%hidden_field_tag "personal_id", @personnel_id%>
+    <div class="field">
+      <%= label_tag(:date_and_time, "Date and Time:") %>
+      <%= datetime_field_tag(:date_and_time) %>
+    </div>
+
+    <div class="field">
+      <%= label_tag(:category, "Category:") %>
+      <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
+    </div>
+
+    <div class="field">
+      <%= label_tag(:payment_type, "Payment Type:") %>
+      <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
+    </div>
+      
+    <div class="field">
+      <%= label_tag(:remarks, "Remarks:") %>
+      <%= text_field_tag(:remarks) %>
+    </div>
+    <%= submit_tag("SPLIT_BILL_PERSON_WISE") %>
+
+  <%end%>
+  <%# this is end form for last button%>
+<% end %>
+
+
+
+
+
+<script>
+
+    let formCount = 1; // Start counting from 1 for the next form
+
+    const addButton = document.getElementById('add-form-btn');
+    const formsContainer = document.getElementById('forms-container');
+
+    function addRemoveButton(formGroup, index) {
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.textContent = 'Remove This Form';
+        removeButton.className = 'remove-form-btn';
+        removeButton.onclick = function() {
+            formGroup.remove();
+        };
+        formGroup.appendChild(removeButton);
+    }
+
+    addButton.addEventListener('click', function() {
+        const formGroup = document.createElement('div');
+        formGroup.classList.add('form-group');
+        formGroup.setAttribute('id', 'form-group-' + formCount);
+        formGroup.innerHTML = `
+            <label for="field_one_${formCount}">Item Name:${formCount}</label>
+            <input type="text" id="field_one_${formCount}" name="field_one[]" />
+            <label for="field_two_${formCount}">Amount:${formCount}</label>
+            <input type="number" id="field_two_${formCount}" name="field_two[]" />
+        `;
+        formsContainer.appendChild(formGroup);
+        addRemoveButton(formGroup, formCount);
+        formCount++;
+    });
+
+    // this is code for select dropdown and set values
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownField = document.getElementById('dropdown-field');
+        const dropdownList = document.getElementById('dropdown-list');
+        const searchBox = document.getElementById('search-box');
+        const selectAllBtn = document.getElementById('select-all-btn');
+    
+        // Toggle dropdown list
+        dropdownField.addEventListener('click', function() {
+        dropdownList.style.display = dropdownList.style.display === 'none' ? 'block' : 'none';
+        searchBox.value = ''; // Reset search box
+        filterItems(''); // Reset filter
+        });
+    
+        // Filter dropdown items
+        searchBox.addEventListener('keyup', function() {
+        filterItems(this.value);
+        });
+    
+        // Function to filter items based on search
+        function filterItems(query) {
+        const items = dropdownList.getElementsByClassName('dropdown-item');
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            let text = item.textContent || item.innerText;
+            item.style.display = text.toLowerCase().indexOf(query.toLowerCase()) > -1 ? "" : "none";
+        }
+        }
+    
+        // Hide dropdown list when clicking outside
+        window.addEventListener('click', function(e) {
+        if (!e.target.matches('.dropdown, .dropdown *')) {
+            dropdownList.style.display = 'none';
+        }
+        });
+    
+        // Select item
+        dropdownList.addEventListener('change', function(e) {
+        if (e.target.type === 'checkbox') {
+            let selectedItems = Array.from(dropdownList.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(checkbox => checkbox.value);
+            dropdownField.textContent = selectedItems.join(', ');
+        }
+        });
+    
+        // Select all items
+        selectAllBtn.addEventListener('click', function() {
+        const checkboxes = dropdownList.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+        let selectedItems = Array.from(checkboxes)
+            .map(checkbox => checkbox.value);
+        dropdownField.textContent = selectedItems.join(', ');
+        selectAllBtn.innerHTML = "dbl Click Deselect All"
+        });
+        // deselect all element from checklist
+          selectAllBtn.addEventListener('dblclick', function() {
+          const checkboxes = dropdownList.querySelectorAll('input[type="checkbox"]');
+          checkboxes.forEach(checkbox => checkbox.checked = false);
+          dropdownField.textContent = 'Select a name';
+          selectAllBtn.innerHTML = "Select All"
+          });
+      });
+
+      // this code is for the form created when someone click the last button
+      
+      // here is end of the last button  form
+</script>

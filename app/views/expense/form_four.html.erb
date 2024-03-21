@@ -1,0 +1,230 @@
+<%= link_to "DON'T WANT TO ADD ANY EXPENSE" , users_home_path%>
+
+
+
+<h1>ADD ANY EXPENSE HERE</h1>
+<p>User ID: <%= @personnel_id%></p>
+
+
+    <style>
+        .custom-dropdown {
+            position: relative;
+            width: 200px;
+            border: 1px solid red;
+            margin: 5px;
+        }
+
+        .dropdown-field-custom {
+            padding: 10px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-size: large;
+            margin: 10px;
+        }
+
+        .dropdown-list-custom {
+            position: absolute;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: none; /* Initially hidden */
+        }
+
+        .search-box-custom {
+            width: calc(100% - 50px);
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            background-color: rgb(168, 223, 168);
+            border-radius: 10px;
+        }
+
+        .dropdown-item-custom {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-item-custom:hover {
+            background-color: #f6f6f6;
+        }
+
+        #data-display-custom {
+            margin-top: 20px;
+            border-top: 2px solid #000;
+            padding-top: 10px;
+        }
+        .numberFieldCustom{
+            margin: 5px;
+        }
+        .remove-btn-custom{
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+<%= form_tag "create_new_expense" do %>
+  <%= hidden_field_tag "personal_id", @personnel_id %>
+  <div class="field">
+    <%= label_tag(:date_and_time, "Date and Time:") %>
+    <%= datetime_field_tag(:date_and_time) %>
+  </div>
+  <div class="field">
+    <%= label_tag(:category, "Category:") %>
+    <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
+  </div>
+  <div class="field">
+    <%= label_tag(:payment_type, "Payment Type:") %>
+    <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
+  </div>
+  <div class="field">
+    <%= label_tag(:remarks, "Remarks:") %>
+    <%= text_field_tag(:remarks) %>
+  </div>
+
+  <div id="form-template-custom" style="display: none;">
+    <div class="custom-dropdown">
+      <div class="dropdown-field-custom">Select a name</div>
+      <div class="dropdown-list-custom">
+        <input type="text" class="search-box-custom" placeholder="Search..." />
+        <div class="dropdown-item-custom" data-value="Item 1">Item 1</div>
+        <div class="dropdown-item-custom" data-value="Item 2">Item 2</div>
+        <div class="dropdown-item-custom" data-value="Item 3">Item 3</div>
+        <!-- Additional dropdown items here -->
+      </div>
+      <input type="number" class="numberFieldCustom" />
+      <button class="remove-btn-custom" type="button">Remove</button>
+    </div>
+  </div>
+
+  <div id="forms-container-custom">
+    <!-- Form groups will be dynamically inserted here -->
+  </div>
+  <button id="add-form-btn-custom" type="button">Add Form</button>
+  <button id="submit-btn-custom" type="submit">SPLIT_BILL_PERSON_WISE</button>
+
+  <div id="data-display-custom">
+    <!-- Added data will be displayed here -->
+  </div>
+<% end %>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formsContainerCustom = document.getElementById('forms-container-custom');
+    const addFormBtnCustom = document.getElementById('add-form-btn-custom');
+    const submitBtnCustom = document.getElementById('submit-btn-custom');
+
+    function createFormGroupCustom() {
+        const templateCustom = document.getElementById('form-template-custom').cloneNode(true);
+        templateCustom.style.display = 'block';
+        templateCustom.id = '';
+
+        const dropdownFieldCustom = templateCustom.querySelector('.dropdown-field-custom');
+        const dropdownListCustom = templateCustom.querySelector('.dropdown-list-custom');
+        const searchBoxCustom = templateCustom.querySelector('.search-box-custom');
+        const numberFieldCustom = templateCustom.querySelector('.numberFieldCustom');
+        const removeBtnCustom = templateCustom.querySelector('.remove-btn-custom');
+
+        dropdownFieldCustom.addEventListener('click', function() {
+            dropdownListCustom.style.display = 'block';
+        });
+
+        searchBoxCustom.addEventListener('keyup', function() {
+            const queryCustom = this.value.toLowerCase();
+            const itemsCustom = dropdownListCustom.getElementsByClassName('dropdown-item-custom');
+            Array.from(itemsCustom).forEach(itemCustom => {
+                const textCustom = itemCustom.textContent.toLowerCase();
+                itemCustom.style.display = textCustom.includes(queryCustom) ? '' : 'none';
+            });
+        });
+
+        dropdownListCustom.addEventListener('click', function(e) {
+            if (e.target.classList.contains('dropdown-item-custom')) {
+                dropdownFieldCustom.textContent = e.target.textContent;
+                dropdownFieldCustom.dataset.value = e.target.dataset.value;
+                dropdownListCustom.style.display = 'none';
+            }
+        });
+
+        removeBtnCustom.addEventListener('click', function() {
+            templateCustom.remove();
+        });
+
+        formsContainerCustom.appendChild(templateCustom);
+    }
+
+    addFormBtnCustom.addEventListener('click', createFormGroupCustom);
+
+    // Initially create one form group
+    createFormGroupCustom();
+});
+</script>
+
+<%# <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formsContainerCustom = document.getElementById('forms-container-custom');
+    const addFormBtnCustom = document.getElementById('add-form-btn-custom');
+    const submitBtnCustom = document.getElementById('submit-btn-custom');
+    let collectedDataCustom = [];
+
+    function createFormGroupCustom() {
+        const templateCustom = document.getElementById('form-template-custom').cloneNode(true);
+        templateCustom.style.display = 'block';
+        templateCustom.id = '';
+
+        const dropdownFieldCustom = templateCustom.querySelector('.dropdown-field-custom');
+        const dropdownListCustom = templateCustom.querySelector('.dropdown-list-custom');
+        const searchBoxCustom = templateCustom.querySelector('.search-box-custom');
+        const numberFieldCustom = templateCustom.querySelector('.numberFieldCustom');
+        const removeBtnCustom = templateCustom.querySelector('.remove-btn-custom');
+
+        dropdownFieldCustom.addEventListener('click', function() {
+            dropdownListCustom.style.display = 'block';
+        });
+
+        searchBoxCustom.addEventListener('keyup', function() {
+            const queryCustom = this.value.toLowerCase();
+            const itemsCustom = dropdownListCustom.getElementsByClassName('dropdown-item-custom');
+            Array.from(itemsCustom).forEach(itemCustom => {
+                const textCustom = itemCustom.textContent.toLowerCase();
+                itemCustom.style.display = textCustom.includes(queryCustom) ? '' : 'none';
+            });
+        });
+
+        dropdownListCustom.addEventListener('click', function(e) {
+            if (e.target.classList.contains('dropdown-item-custom')) {
+                dropdownFieldCustom.textContent = e.target.textContent;
+                dropdownFieldCustom.dataset.value = e.target.dataset.value;
+                dropdownListCustom.style.display = 'none';
+            }
+        });
+
+        removeBtnCustom.addEventListener('click', function() {
+            templateCustom.remove();
+        });
+
+        formsContainerCustom.appendChild(templateCustom);
+    }
+
+    addFormBtnCustom.addEventListener('click', createFormGroupCustom);
+
+    // submitBtnCustom.addEventListener('click', function() {
+    //     collectedDataCustom = [];
+    //     const formGroupsCustom = formsContainerCustom.children;
+    //     Array.from(formGroupsCustom).forEach(groupCustom => {
+    //         const dropdownValueCustom = groupCustom.querySelector('.dropdown-field-custom').dataset.value;
+    //         const numberValueCustom = groupCustom.querySelector('.numberFieldCustom').value;
+    //         collectedDataCustom.push({ dropdownValueCustom, numberValueCustom });
+    //     });
+    //     console.log(collectedDataCustom);
+    // });
+
+    // Initially create one form group
+    createFormGroupCustom();
+});
+</script> %>
+

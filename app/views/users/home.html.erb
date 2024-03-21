@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #0C2D57;
+      color: #FC6736;
+      padding: 10px;
+    }
+
+    .navbar-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-image, .profile-image {
+      width: 50px;
+      height: 50px;
+      background-color: white
+      border-radius: 50%; /* Makes the profile picture round */
+    }
+
+    .khata h1 {
+      margin: 0;
+      font-size: 50px;
+    }
+
+    .profile-login span {
+      margin-left: 10px;
+    }
+
+    /* Add some padding around the logo and login text for better spacing */
+    .logo, .profile-login {
+      padding: 0 15px;
+    }
+    .main{
+        border:1px solid red;
+    }
+    .all_user{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background-color:cyan;
+      height:50px;
+      width: 90vw;
+      border: 3px solid red;
+      text-decoration:none;
+    }
+    .button-24 {
+      margin:10px;
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  text-decoration:none;
+}
+
+.button-24:hover,
+.button-24:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.button-24:active {
+  opacity: .5;
+}
+    .expense_btn{
+      display:flex;
+      flex-direction:column;
+      margin:10px;
+    }
+    .all_users{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100vw;
+      height:200px;
+    }
+    .user-table{
+      width:100vw;
+    }
+    .quote{
+      background-color:#070F2B;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      color:#F72798;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="navbar-section logo">
+      <%= image_tag("logo.png", alt: "Logo", class: "logo-image") %>
+    </div>
+    <div class="navbar-section khata">
+      <h1></h1>
+    </div>
+    <div class="navbar-section profile-login">
+      <%= image_tag("profile-pic.jpg", alt: "Profile Picture", class: "profile-image") %>
+      <span><%= link_to 'LOGIN', users_new_path %></span>
+    </div>
+  </div>
+  <div class="main">
+    <%= image_tag("back.jpg", alt: "Profile Picture", class: "profile-image") %>
+  </div>
+
+  <div class="quote">
+      <p> <%= @content %></p>
+      <br>
+      <p>🖋️Author  => <strong><%= @author %></strong></p>
+  </div>
+
+  <div class="all_users">
+      <%= link_to 'SEE ALL USERS', users_index_path ,class:"all_user"%>
+  </div>
+
+  <!--this code is for to make UX more comfortable -->
+  <table class="user-table">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+    <th>ADD EXPENSE</th>
+    <th>VIEW EXPENSES</th>
+  </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <% if current_user &&  current_user.email == user.email%>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>       
+        <td>
+          <%= link_to 'Edit', users_edit_path(user), class: 'button-24' %>
+          <%= link_to 'Delete', users_personnel_delete_path(user), class: 'button-24' %>
+        </td>
+        <td class="expense_btn">
+          <%= link_to 'PERSONAL EXPENSES OR INCOME', expense_add_expense_path(user_id: user.id, extra_param: 'personal_expense'), class: 'button-24' %>
+          <%= link_to 'SPLIT BILL EVENLY', expense_add_expense_path(user_id: user.id, extra_param: 'split_bill'), class: 'button-24' %>
+          <%= link_to 'SPLIT BILL PERSON WISE', expense_form_four_path(user_id: user.id, extra_param: 'split_bill_person_wise'), class: 'button-24' %>
+          <%= link_to 'SPLIT BILL PERSON WISE', expense_add_expense_path(user_id: user.id, extra_param: 'split_bill_person_wise'), class: 'button-24' %>
+        </td>
+        <td><%= link_to 'SHOW MY EXPENSES', expense_show_expenses_path(user) , class: 'button-24'%></td>
+      <%end%>
+    </tr>
+  <% end %>
+</table>
+
+</body>
+</html>
