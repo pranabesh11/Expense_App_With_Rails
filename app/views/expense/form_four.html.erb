@@ -89,13 +89,14 @@
     <div class="custom-dropdown">
       <div class="dropdown-field-custom">Select a name</div>
       <div class="dropdown-list-custom">
-        <input type="text" class="search-box-custom" placeholder="Search..." />
-        <div class="dropdown-item-custom" data-value="Item 1">Item 1</div>
-        <div class="dropdown-item-custom" data-value="Item 2">Item 2</div>
-        <div class="dropdown-item-custom" data-value="Item 3">Item 3</div>
-        <!-- Additional dropdown items here -->
+        <%= text_field_tag :search, nil, placeholder: "Search...", class: "search-box-custom" %>
+        <% @users.each do |user| %>
+          <div class="dropdown-item-custom" data-value="<%= user.id %>">
+            <%= user.name %>
+          </div>
+        <% end %>
       </div>
-      <input type="number" class="numberFieldCustom" />
+      <input type="number" class="numberFieldCustom" name="price"/>
       <button class="remove-btn-custom" type="button">Remove</button>
     </div>
   </div>
@@ -112,11 +113,11 @@
 <% end %>
 
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
     const formsContainerCustom = document.getElementById('forms-container-custom');
     const addFormBtnCustom = document.getElementById('add-form-btn-custom');
-    const submitBtnCustom = document.getElementById('submit-btn-custom');
 
     function createFormGroupCustom() {
         const templateCustom = document.getElementById('form-template-custom').cloneNode(true);
@@ -125,31 +126,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const dropdownFieldCustom = templateCustom.querySelector('.dropdown-field-custom');
         const dropdownListCustom = templateCustom.querySelector('.dropdown-list-custom');
-        const searchBoxCustom = templateCustom.querySelector('.search-box-custom');
-        const numberFieldCustom = templateCustom.querySelector('.numberFieldCustom');
-        const removeBtnCustom = templateCustom.querySelector('.remove-btn-custom');
 
-        dropdownFieldCustom.addEventListener('click', function() {
-            dropdownListCustom.style.display = 'block';
+        dropdownFieldCustom.addEventListener('click', function(event) {
+            dropdownListCustom.style.display = dropdownListCustom.style.display === 'block' ? 'none' : 'block';
+            event.stopPropagation(); // Stop the click from immediately propagating to the document
+        });
+
+        const searchBoxCustom = templateCustom.querySelector('.search-box-custom');
+        searchBoxCustom.addEventListener('click', function(event) {
+            event.stopPropagation(); // Stop the click inside the search box from closing the dropdown
         });
 
         searchBoxCustom.addEventListener('keyup', function() {
             const queryCustom = this.value.toLowerCase();
-            const itemsCustom = dropdownListCustom.getElementsByClassName('dropdown-item-custom');
-            Array.from(itemsCustom).forEach(itemCustom => {
+            const itemsCustom = dropdownListCustom.querySelectorAll('.dropdown-item-custom');
+            itemsCustom.forEach(itemCustom => {
                 const textCustom = itemCustom.textContent.toLowerCase();
                 itemCustom.style.display = textCustom.includes(queryCustom) ? '' : 'none';
             });
         });
 
-        dropdownListCustom.addEventListener('click', function(e) {
-            if (e.target.classList.contains('dropdown-item-custom')) {
-                dropdownFieldCustom.textContent = e.target.textContent;
-                dropdownFieldCustom.dataset.value = e.target.dataset.value;
-                dropdownListCustom.style.display = 'none';
+        
+        dropdownListCustom.addEventListener('click', function(event) {
+        let target = event.target;
+        let count = 0;
+        if (target.classList.contains('dropdown-item-custom')) {
+            dropdownFieldCustom.textContent = target.textContent.trim();
+            
+            // Assuming you have a hidden input to store the selected value
+            let hiddenInput = templateCustom.querySelector('.selected-value-input');
+            if (!hiddenInput) {
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.className = 'selected-value-input';
+                hiddenInput.name = `selectedValue${count}`; // Name this according to what your server expects
+                templateCustom.appendChild(hiddenInput);
+                count++;
             }
+            hiddenInput.value = target.dataset.value; // Make sure your items have a data-value attribute
+
+            dropdownListCustom.style.display = 'none';
+        }
         });
 
+
+        document.addEventListener('click', function() {
+            dropdownListCustom.style.display = 'none';
+        });
+
+        const removeBtnCustom = templateCustom.querySelector('.remove-btn-custom');
         removeBtnCustom.addEventListener('click', function() {
             templateCustom.remove();
         });
@@ -159,72 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addFormBtnCustom.addEventListener('click', createFormGroupCustom);
 
-    // Initially create one form group
     createFormGroupCustom();
 });
+
+
 </script>
-
-<%# <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const formsContainerCustom = document.getElementById('forms-container-custom');
-    const addFormBtnCustom = document.getElementById('add-form-btn-custom');
-    const submitBtnCustom = document.getElementById('submit-btn-custom');
-    let collectedDataCustom = [];
-
-    function createFormGroupCustom() {
-        const templateCustom = document.getElementById('form-template-custom').cloneNode(true);
-        templateCustom.style.display = 'block';
-        templateCustom.id = '';
-
-        const dropdownFieldCustom = templateCustom.querySelector('.dropdown-field-custom');
-        const dropdownListCustom = templateCustom.querySelector('.dropdown-list-custom');
-        const searchBoxCustom = templateCustom.querySelector('.search-box-custom');
-        const numberFieldCustom = templateCustom.querySelector('.numberFieldCustom');
-        const removeBtnCustom = templateCustom.querySelector('.remove-btn-custom');
-
-        dropdownFieldCustom.addEventListener('click', function() {
-            dropdownListCustom.style.display = 'block';
-        });
-
-        searchBoxCustom.addEventListener('keyup', function() {
-            const queryCustom = this.value.toLowerCase();
-            const itemsCustom = dropdownListCustom.getElementsByClassName('dropdown-item-custom');
-            Array.from(itemsCustom).forEach(itemCustom => {
-                const textCustom = itemCustom.textContent.toLowerCase();
-                itemCustom.style.display = textCustom.includes(queryCustom) ? '' : 'none';
-            });
-        });
-
-        dropdownListCustom.addEventListener('click', function(e) {
-            if (e.target.classList.contains('dropdown-item-custom')) {
-                dropdownFieldCustom.textContent = e.target.textContent;
-                dropdownFieldCustom.dataset.value = e.target.dataset.value;
-                dropdownListCustom.style.display = 'none';
-            }
-        });
-
-        removeBtnCustom.addEventListener('click', function() {
-            templateCustom.remove();
-        });
-
-        formsContainerCustom.appendChild(templateCustom);
-    }
-
-    addFormBtnCustom.addEventListener('click', createFormGroupCustom);
-
-    // submitBtnCustom.addEventListener('click', function() {
-    //     collectedDataCustom = [];
-    //     const formGroupsCustom = formsContainerCustom.children;
-    //     Array.from(formGroupsCustom).forEach(groupCustom => {
-    //         const dropdownValueCustom = groupCustom.querySelector('.dropdown-field-custom').dataset.value;
-    //         const numberValueCustom = groupCustom.querySelector('.numberFieldCustom').value;
-    //         collectedDataCustom.push({ dropdownValueCustom, numberValueCustom });
-    //     });
-    //     console.log(collectedDataCustom);
-    // });
-
-    // Initially create one form group
-    createFormGroupCustom();
-});
-</script> %>
-
