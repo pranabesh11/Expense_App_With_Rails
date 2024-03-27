@@ -57,65 +57,6 @@
         background-color: aquamarine;
         border-style: none;
       }
-      /* this is for last form */
-      .custom-dropdown {
-            position: relative;
-            width: 200px;
-            border: 1px solid red;
-            margin: 5px;
-        }
-
-        .dropdown-field-custom {
-            padding: 10px;
-            background-color: #f0f0f0;
-            cursor: pointer;
-            font-size: large;
-            margin: 10px;
-        }
-
-        .dropdown-list-custom {
-            position: absolute;
-            width: 100%;
-            background-color: #fff;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 100;
-            display: none; /* Initially hidden */
-        }
-
-        .search-box-custom {
-            width: calc(100% - 50px);
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ddd;
-            background-color: rgb(168, 223, 168);
-            border-radius: 10px;
-        }
-
-        .dropdown-item-custom {
-            padding: 10px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-        }
-
-        .dropdown-item-custom:hover {
-            background-color: #f6f6f6;
-        }
-
-        #data-display-custom {
-            margin-top: 20px;
-            border-top: 2px solid #000;
-            padding-top: 10px;
-        }
-        .numberFieldCustom{
-            margin: 5px;
-        }
-        .remove-btn-custom{
-            margin: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-      /* this is end of last form */
     </style>
 
 
@@ -310,30 +251,7 @@
   <%=  'form4' %>
   
   <%# this is form for last form %>
-  <%=form_tag "create_new_expense" do%>
-  <%hidden_field_tag "personal_id", @personnel_id%>
-    <div class="field">
-      <%= label_tag(:date_and_time, "Date and Time:") %>
-      <%= datetime_field_tag(:date_and_time) %>
-    </div>
-
-    <div class="field">
-      <%= label_tag(:category, "Category:") %>
-      <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
-    </div>
-
-    <div class="field">
-      <%= label_tag(:payment_type, "Payment Type:") %>
-      <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
-    </div>
-      
-    <div class="field">
-      <%= label_tag(:remarks, "Remarks:") %>
-      <%= text_field_tag(:remarks) %>
-    </div>
-    <%= submit_tag("SPLIT_BILL_PERSON_WISE") %>
-
-  <%end%>
+  <%= render 'expense/form_four' %>
   <%# this is end form for last button%>
 <% end %>
 
@@ -436,8 +354,4 @@
           selectAllBtn.innerHTML = "Select All"
           });
       });
-
-      // this code is for the form created when someone click the last button
-      
-      // here is end of the last button  form
 </script>
