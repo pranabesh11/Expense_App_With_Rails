@@ -115,6 +115,100 @@
 
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formsContainerCustom = document.getElementById('forms-container-custom');
+    const addFormBtnCustom = document.getElementById('add-form-btn-custom');
+    let formCount = 0; // Counter to ensure unique names for dynamically added elements
+
+    // Function to create a new form group
+    function createFormGroupCustom() {
+        const templateCustom = document.getElementById('form-template-custom').cloneNode(true);
+        templateCustom.style.display = 'block';
+        templateCustom.id = '';
+
+        const dropdownFieldCustom = templateCustom.querySelector('.dropdown-field-custom');
+        const dropdownListCustom = templateCustom.querySelector('.dropdown-list-custom');
+        const numberFieldCustom = templateCustom.querySelector('.numberFieldCustom');
+        const hiddenInput = document.createElement('input');
+
+        hiddenInput.type = 'hidden';
+        hiddenInput.className = 'selected-value-input';
+        hiddenInput.name = `selectedValues[${formCount}]`; // Array-like name to capture all values
+        numberFieldCustom.name = `prices[${formCount}]`; // Unique name for each price input
+
+        dropdownFieldCustom.addEventListener('click', function(event) {
+            // Toggle display of dropdown list
+            dropdownListCustom.style.display = dropdownListCustom.style.display === 'block' ? 'none' : 'block';
+            event.stopPropagation();
+        });
+
+        dropdownListCustom.addEventListener('click', function(event) {
+            // Set selected value to dropdown field and hidden input
+            let target = event.target;
+            if (target.classList.contains('dropdown-item-custom')) {
+                dropdownFieldCustom.textContent = target.textContent.trim();
+                hiddenInput.value = target.dataset.value;
+                dropdownListCustom.style.display = 'none';
+                templateCustom.appendChild(hiddenInput);
+            }
+        });
+
+        // Prevent the dropdown from closing when clicking inside the search box
+        const searchBoxCustom = templateCustom.querySelector('.search-box-custom');
+        searchBoxCustom.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+
+        searchBoxCustom.addEventListener('keyup', function() {
+            // Filter dropdown items based on search query
+            const queryCustom = this.value.toLowerCase();
+            const itemsCustom = dropdownListCustom.querySelectorAll('.dropdown-item-custom');
+            itemsCustom.forEach(itemCustom => {
+                const textCustom = itemCustom.textContent.toLowerCase();
+                itemCustom.style.display = textCustom.includes(queryCustom) ? '' : 'none';
+            });
+        });
+
+        const removeBtnCustom = templateCustom.querySelector('.remove-btn-custom');
+        removeBtnCustom.addEventListener('click', function(event) {
+            // Remove the form group from the DOM
+            event.preventDefault();
+            templateCustom.remove();
+        });
+
+        formsContainerCustom.appendChild(templateCustom);
+        formCount++; // Increment the counter for the next form group
+    }
+
+    // Prevent default form submission for 'Add Form' button
+    addFormBtnCustom.addEventListener('click', function(event) {
+        event.preventDefault();
+        createFormGroupCustom();
+    });
+
+    // Optionally, initialize one form group on page load if needed
+     createFormGroupCustom();
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%# 
+<script>
  document.addEventListener('DOMContentLoaded', function() {
     const formsContainerCustom = document.getElementById('forms-container-custom');
     const addFormBtnCustom = document.getElementById('add-form-btn-custom');
@@ -185,4 +279,4 @@
     createFormGroupCustom();
 });
 
-</script>
+</script> %>

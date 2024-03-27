@@ -15,7 +15,14 @@ class ExpenseController < ApplicationController
 
     def form_four
         @users = User.all
-        p params
+        p "***************"
+        p params[:date_and_time]
+        p params[:category]
+        p params[:payment_type]
+        p params[:remarks]
+        p params[:prices]
+        p params[:selectedValues]
+        p "****************"
     end
 
     def show_expenses
@@ -58,6 +65,10 @@ class ExpenseController < ApplicationController
                 p "==================================="
                 puts "#{person} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{all_items} => #{each_person_cost} => #{params[:remarks]}"
                 p "==================================="
+            end
+        else 
+            params.each do |key , value|
+                p key => value  
             end
         end
        
