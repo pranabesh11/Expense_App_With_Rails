@@ -149,7 +149,6 @@
         
         dropdownListCustom.addEventListener('click', function(event) {
         let target = event.target;
-        let count = 0;
         if (target.classList.contains('dropdown-item-custom')) {
             dropdownFieldCustom.textContent = target.textContent.trim();
             
@@ -159,9 +158,8 @@
                 hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
                 hiddenInput.className = 'selected-value-input';
-                hiddenInput.name = `selectedValue${count}`; // Name this according to what your server expects
+                hiddenInput.name = `selectedValue`; // Name this according to what your server expects
                 templateCustom.appendChild(hiddenInput);
-                count++;
             }
             hiddenInput.value = target.dataset.value; // Make sure your items have a data-value attribute
 
