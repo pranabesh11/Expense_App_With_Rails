@@ -6,6 +6,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
+      background-color:#0F2C59;
     }
 
     .navbar {
@@ -42,56 +43,59 @@
     .logo, .profile-login {
       padding: 0 15px;
     }
-    .main{
+    /* .main{
         border:1px solid red;
-    }
+    } */
     .all_user{
       display:flex;
       align-items:center;
       justify-content:center;
-      background-color:cyan;
-      height:50px;
-      width: 90vw;
-      border: 3px solid red;
+      background-color:#B4B4B3;
+      height:30px;
+      padding:7px;
+      border:2px solid #662549;
+      color:black;
+      border-radius:20px;
       text-decoration:none;
+      margin:7px;
     }
     .button-24 {
       margin:10px;
-  background: #FF4742;
-  border: 1px solid #FF4742;
-  border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 16px;
-  min-height: 40px;
-  outline: 0;
-  padding: 12px 14px;
-  text-align: center;
-  text-rendering: geometricprecision;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  text-decoration:none;
-}
+      background: #FF4742;
+      border: 1px solid #FF4742;
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+      box-sizing: border-box;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: inline-block;
+      font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 16px;
+      min-height: 40px;
+      outline: 0;
+      padding: 12px 14px;
+      text-align: center;
+      text-rendering: geometricprecision;
+      text-transform: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+      text-decoration:none;
+    }
 
-.button-24:hover,
-.button-24:active {
-  background-color: initial;
-  background-position: 0 0;
-  color: #FF4742;
-}
+    .button-24:hover,
+    .button-24:active {
+      background-color: initial;
+      background-position: 0 0;
+      color: #FF4742;
+    }
 
-.button-24:active {
-  opacity: .5;
-}
+    .button-24:active {
+      opacity: .5;
+    }
     .expense_btn{
       display:flex;
       flex-direction:column;
@@ -103,17 +107,33 @@
       justify-content:center;
       width:100vw;
       height:200px;
+      
     }
     .user-table{
       width:100vw;
+      color:white;
     }
     .quote{
-      background-color:#070F2B;
+      background-color:inherit;
       display:flex;
       align-items:center;
       justify-content:center;
       flex-direction:column;
       color:#F72798;
+      margin:0;
+      padding:0;
+    }
+    .quote_content{
+      background-color:#EADBC8;
+      border-radius:10px;
+      padding:15px;
+      color:black;
+    }
+    .quote_author{
+      background-color:#EADBC8;
+      border-radius:10px;
+      padding:15px;
+      color:black;
     }
   </style>
 </head>
@@ -131,19 +151,20 @@
       <span><%= link_to 'LOGIN', users_new_path %></span>
     </div>
   </div>
-  <div class="main">
+  <%# <div class="main">
     <%= image_tag("back.jpg", alt: "Profile Picture", class: "profile-image") %>
-  </div>
+  <%# </div> %> 
 
   <div class="quote">
-      <p> <%= @content %></p>
-      <br>
-      <p>🖋️Author  => <strong><%= @author %></strong></p>
+      <p class="quote_content"> <%= @content %></p>
+      <p class="quote_author">🖋️Author  ~ <strong><%= @author %></strong></p>
   </div>
 
   <div class="all_users">
       <%= link_to 'SEE ALL USERS', users_index_path ,class:"all_user"%>
+      <%= link_to 'CREATE GROUP', users_create_group_path ,class:"all_user"%>
   </div>
+  
 
   <!--this code is for to make UX more comfortable -->
   <table class="user-table">

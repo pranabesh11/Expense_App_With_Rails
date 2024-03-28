@@ -1,0 +1,68 @@
+<style>
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Full viewport height */
+    padding: 20px;
+}
+
+form {
+    width: 100%; /* Full width of its container */
+    max-width: 400px; /* Reduced maximum width of the form for a smaller size */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+       
+}
+
+form label, 
+form input, 
+form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Align checkbox and label side by side with less gap */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-container label {
+    margin-left: 2px; /* Reduced space between the checkbox and its label */
+    display: inline;
+}
+
+form input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+</style>
+
+<div class="main">
+    <%= form_tag "create_group_post" do %>
+        <%= label_tag :group_name, "GROUP NAME" %>
+        <%= text_field_tag :name, nil, autofocus: true %>
+
+        <% @all_users_to_create_group.each_with_index do |item, index| %>
+            <div class="checkbox-container">
+                <%= check_box_tag "items[]", item.name, false, id: "item#{index}" %>
+                <%= label_tag "item#{index}", item.name %>
+            </div>
+        <% end %>
+    
+        <%= submit_tag("CREATE GROUP") %>
+    <% end %>
+</div>

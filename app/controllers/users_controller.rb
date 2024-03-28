@@ -2,6 +2,12 @@ class UsersController < ApplicationController
     def index
         @users=User.all
     end
+    def create_group
+        @all_users_to_create_group=User.all
+    end
+    def create_group_post
+        p params
+    end
 
     def home
         @users=User.all
