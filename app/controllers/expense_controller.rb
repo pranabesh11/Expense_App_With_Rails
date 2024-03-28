@@ -67,9 +67,14 @@ class ExpenseController < ApplicationController
                 p "==================================="
             end
         else 
-            params.each do |key , value|
-                p key => value  
-            end
+            prices_field_value = params[:prices].permit!.to_h
+id_of_all_users = params[:selectedValues].permit!.to_h
+
+prices_field_value.each_with_index do |(key, value), index|
+  user_id = id_of_all_users[key]
+  p "#{params[:personal_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
+end
+
         end
        
     end
