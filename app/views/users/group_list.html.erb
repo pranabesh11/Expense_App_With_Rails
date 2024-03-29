@@ -1,0 +1,67 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #e9e9e9;
+  }
+</style>
+
+
+
+<h1>Group List</h1>
+
+<table>
+  <thead>
+    <tr>    
+      <th>Group Name</th>
+      <th>Group UUID</th>
+      <th>Group Members</th>
+      <th>Group Members name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @unique_group_names.each_with_index do |cluster,index| %>
+      <tr>       
+        <td><%= cluster.groupname %></td>     
+        <td><%= cluster.groupIduuid %></td>
+        <%@total_number_of_member.each do|key,value|%>
+            <%if key==cluster.groupname%>
+            <td><%= value%></td> 
+            <%end%>
+        <%end%> 
+        <td><%= @names_array[index] %></td>             
+      </tr>
+    <% end %>
+  </tbody>
+</table>

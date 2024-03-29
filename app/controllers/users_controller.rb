@@ -62,6 +62,24 @@ class UsersController < ApplicationController
         redirect_to users_index_path
     end
 
-    
+    # from here i am writing code for group and cluster
+    def group_list
+        @all_group_information = Cluster.all
+        @unique_group_names = Cluster.select(:groupname, :groupIduuid ).distinct       
+        @total_number_of_member = Cluster.group(:groupname).count
+        @all_group_information = Cluster.all
 
+        # all users names
+        @names_array = []
+        @unique_group_names.each do |unique_id|
+            @all_names = []
+            @all_group_information.each do |all_data|           
+                if unique_id.groupIduuid == all_data.groupIduuid
+                    temp_names = User.find(all_data.userId)
+                    @all_names << temp_names.name
+                end
+            end
+            @names_array << @all_names.join(" , ")
+        end
+    end
 end
