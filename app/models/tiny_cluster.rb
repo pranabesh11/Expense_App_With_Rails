@@ -1,0 +1,2 @@
+class TinyCluster < ApplicationRecord
+end

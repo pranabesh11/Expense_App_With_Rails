@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_13_074354) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_29_083413) do
+  create_table "clusters", force: :cascade do |t|
+    t.string "groupname"
+    t.integer "userId"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "groupIduuid"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "item_name"
     t.decimal "amount"
@@ -26,6 +34,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_074354) do
 
   create_table "product_names", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tiny_clusters", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "email"
+    t.string "cluster_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

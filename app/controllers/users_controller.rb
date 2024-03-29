@@ -6,7 +6,14 @@ class UsersController < ApplicationController
         @all_users_to_create_group=User.all
     end
     def create_group_post
-        p params
+        uuid = SecureRandom.uuid
+        params[:items].each do |id|
+            @create_group = Cluster.new
+            @create_group.groupIduuid = uuid
+            @create_group.groupname = params[:name]
+            @create_group.userId = id.to_i
+            @create_group.save 
+        end
     end
 
     def home

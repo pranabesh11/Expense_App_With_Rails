@@ -56,13 +56,31 @@ form input[type="submit"]:hover {
         <%= label_tag :group_name, "GROUP NAME" %>
         <%= text_field_tag :name, nil, autofocus: true %>
 
-        <% @all_users_to_create_group.each_with_index do |item, index| %>
-            <div class="checkbox-container">
-                <%= check_box_tag "items[]", item.name, false, id: "item#{index}" %>
-                <%= label_tag "item#{index}", item.name %>
-            </div>
+        <% @all_users_to_create_group.each_with_index do |user, index| %>
+          <div class="checkbox-container">
+            <%= check_box_tag "items[]", user.id, false, id: "item#{index}", class: "user-checkbox", data: { target: "user-name-#{user.id}" } %>
+            <%= label_tag "item#{index}", user.name %>
+            <%= hidden_field_tag "names[#{user.id}]", user.name, id: "user-name-#{user.id}", disabled: true %>
+          </div>
         <% end %>
-    
+
         <%= submit_tag("CREATE GROUP") %>
     <% end %>
 </div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.user-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const targetId = checkbox.dataset.target;
+        const hiddenField = document.getElementById(targetId);
+        if (checkbox.checked) {
+          hiddenField.disabled = false;
+        } else {
+          hiddenField.disabled = true;
+        }
+      });
+    });
+  });
+</script>
