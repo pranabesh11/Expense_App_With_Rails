@@ -35,6 +35,43 @@
   tr:hover {
     background-color: #e9e9e9;
   }
+  .button-24 {
+      margin:10px;
+      background: #FF4742;
+      border: 1px solid #FF4742;
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+      box-sizing: border-box;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: inline-block;
+      font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 16px;
+      min-height: 40px;
+      outline: 0;
+      padding: 12px 14px;
+      text-align: center;
+      text-rendering: geometricprecision;
+      text-transform: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+      text-decoration:none;
+    }
+
+    .button-24:hover,
+    .button-24:active {
+      background-color: initial;
+      background-position: 0 0;
+      color: #FF4742;
+    }
+
+    .button-24:active {
+      opacity: .5;
+    }
 </style>
 
 
@@ -48,6 +85,7 @@
       <th>Group UUID</th>
       <th>Group Members</th>
       <th>Group Members name</th>
+      <th>ADD EXPENSE</th>
     </tr>
   </thead>
   <tbody>
@@ -63,8 +101,12 @@
               <%end%>
           <%end%> 
           <td><%= @names_array[index] %></td> 
-        <%end%>            
+            <td>
+              <%= link_to 'SPLIT BILL EVENLY', expense_add_expense_path(user_id: @current_user_email_and_id[0], extra_param: 'split_bill'), class: 'button-24' %><br>
+              <%= link_to 'SPLIT BILL PERSON WISE', expense_add_expense_path(user_id: @current_user_email_and_id[0], extra_param: 'split_bill_person_wise'), class: 'button-24' %>
+            </td>         
+        <%end%>   
       </tr>
-      <%end%>
+    <%end%>
   </tbody>
 </table>

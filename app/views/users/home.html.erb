@@ -188,8 +188,8 @@
         </td>
         <td class="expense_btn">
           <%= link_to 'PERSONAL EXPENSES OR INCOME', expense_add_expense_path(user_id: user.id, extra_param: 'personal_expense'), class: 'button-24' %>
-          <%= link_to 'SPLIT BILL EVENLY', expense_add_expense_path(user_id: user.id, extra_param: 'split_bill'), class: 'button-24' %>
-          <%= link_to 'SPLIT BILL PERSON WISE', expense_add_expense_path(user_id: user.id, extra_param: 'split_bill_person_wise'), class: 'button-24' %>
+          <%# <%= link_to 'SPLIT BILL EVENLY', expense_add_expense_path(user_id: user.id, extra_param: 'split_bill'), class: 'button-24' %>
+          <%# <%= link_to 'SPLIT BILL PERSON WISE', expense_add_expense_path(user_id: user.id, extra_param: 'split_bill_person_wise'), class: 'button-24' %> 
         </td>
         <td><%= link_to 'SHOW MY EXPENSES', expense_show_expenses_path(user) , class: 'button-24'%></td>
       <%end%>

@@ -64,6 +64,8 @@ class UsersController < ApplicationController
 
     # from here i am writing code for group and cluster
     def group_list
+        @users = User.all
+        @current_user_email_and_id = User.where(email:current_user.email).pluck(:id)
         @all_group_information = Cluster.all
         @unique_group_names = Cluster.select(:groupname, :groupIduuid ).distinct       
         @total_number_of_member = Cluster.group(:groupname).count
@@ -83,6 +85,7 @@ class UsersController < ApplicationController
         end
 
         # this code is to get those group where current user is present
+
         @all_group_unique_id_curr_user = []
         @unique_group_id = Cluster.select(:groupIduuid).distinct.pluck(:groupIduuid)
         @unique_group_id.each do |unid|
