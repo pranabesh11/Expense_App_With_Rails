@@ -1,44 +1,61 @@
 <style>
-  .user-table {
-    background-color: #030637;
-    color: #FF004D;
-    width: 100%;
-    border-collapse: collapse;
-    padding: 10px;
-    margin:20px;
-    
-  }
+  * {
+  margin: 0;
+  padding: 0;
+  background-color: #101820;
+}
 
-  .user-table th{
-    padding: 10px;
-    text-align: left;
-  }
+.user-table {
+  background-color: inherit;
+  color: #FF004D;
+  width: 100vw;
+  border-collapse: collapse;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+  border-collapse: separate; /* Allows for border spacing */
+  border-spacing: 10px 10px; /* 0 horizontal spacing, 10px vertical spacing */ 
+}
 
-   .user-table td {
-        padding: 10px;
-        text-align: left;
-        font-weight:20px;
-        
-        
-    }
-  .action-button {
-    border: none;
-    outline: none;
-    background-color: #FF004D;
-    color: #030637;
-    padding: 10px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    border-radius:10px;
-    
-  }
+.user-table th {
+  padding: 5px;
+  text-align: left;
+  background-color: #FEE715;
+  color: black;
+  margin: 7px;
+  text-align: center;
+}
 
-  .action-button:hover {
-    color: #FFFFFF;
-  }
-  
+.user-table td {
+  padding: 10px;
+  text-align: center;
+  font-weight: 20px;
+  background-color: inherit; /* Changed to a brighter shade */
+  color: #ffffff; /* Added for better readability */
+  margin: 5px;
+  border: 1px solid #FEE715; /* Added a border */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
 
-/* CSS */
+.user-table td:hover {
+  background-color: #FEE715; /* Darker shade on hover */
+}
+
+.action-button {
+  border: none;
+  outline: none;
+  background-color: #FF004D;
+  color: #030637;
+  padding: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  border-radius: 10px;
+}
+
+.action-button:hover {
+  color: #FFFFFF;
+}
+
 .button-24 {
   background: #FF4742;
   border: 1px solid #FF4742;
@@ -48,7 +65,7 @@
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
   font-size: 16px;
   font-weight: 800;
   line-height: 16px;
@@ -62,7 +79,7 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
-  text-decoration:none;
+  text-decoration: none;
 }
 
 .button-24:hover,
@@ -75,6 +92,7 @@
 .button-24:active {
   opacity: .5;
 }
+
 </style>
 
 <table class="user-table">
@@ -82,7 +100,6 @@
     <th>Name</th>
     <th>Email</th>
     <th>Actions</th>
-    <th>ADD EXPENSE</th>
     <th>VIEW EXPENSES</th>
   </tr>
 
@@ -96,7 +113,7 @@
           <%= link_to 'Edit', users_edit_path(user), class: 'button-24' %>
           <%= link_to 'Delete', users_personnel_delete_path(user), class: 'button-24' %>
         </td>
-        <td><%= link_to 'ADD EXPENSES', expense_add_expense_path(user), class: 'button-24' %></td>
+        <%# <td><%= link_to 'ADD EXPENSES', expense_add_expense_path(user), class: 'button-24' </td> %>
         <td><%= link_to 'SHOW MY EXPENSES', expense_show_expenses_path(user) , class: 'button-24'%></td>
         <%end%>
 
