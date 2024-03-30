@@ -51,17 +51,20 @@
     </tr>
   </thead>
   <tbody>
+    
     <% @unique_group_names.each_with_index do |cluster,index| %>
-      <tr>       
-        <td><%= cluster.groupname %></td>     
-        <td><%= cluster.groupIduuid %></td>
-        <%@total_number_of_member.each do|key,value|%>
-            <%if key==cluster.groupname%>
-            <td><%= value%></td> 
-            <%end%>
-        <%end%> 
-        <td><%= @names_array[index] %></td>             
+      <tr> 
+        <% if @all_group_unique_id_curr_user.include?(cluster.groupIduuid)%>       
+          <td><%= cluster.groupname %></td>     
+          <td><%= cluster.groupIduuid %></td>
+          <%@total_number_of_member.each do|key,value|%>
+              <%if key==cluster.groupname%>
+              <td><%= value%></td> 
+              <%end%>
+          <%end%> 
+          <td><%= @names_array[index] %></td> 
+        <%end%>            
       </tr>
-    <% end %>
+      <%end%>
   </tbody>
 </table>

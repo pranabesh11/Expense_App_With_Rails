@@ -81,5 +81,20 @@ class UsersController < ApplicationController
             end
             @names_array << @all_names.join(" , ")
         end
+
+        # this code is to get those group where current user is present
+        @all_group_unique_id_curr_user = []
+        @unique_group_id = Cluster.select(:groupIduuid).distinct.pluck(:groupIduuid)
+        @unique_group_id.each do |unid|
+            @user_id_from_group_id = Cluster.where(groupIduuid: unid).pluck(:userId)
+            current_log_in_user_email = current_user.email 
+            present = User.where(email:current_log_in_user_email).pluck(:id)
+            @user_id_from_group_id.each do |userid|
+                @current_user_email = User.where(id:userid).pluck(:email)              
+            end
+            if @user_id_from_group_id.include?(present[0])
+                @all_group_unique_id_curr_user << unid
+            end
+        end
     end
 end
