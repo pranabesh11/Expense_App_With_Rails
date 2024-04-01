@@ -1,6 +1,6 @@
 
     <style>
-        .custom-dropdown {
+        /* .custom-dropdown {
             position: relative;
             width: 200px;
             border: 1px solid red;
@@ -22,7 +22,7 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             z-index: 100;
             display: none; /* Initially hidden */
-        }
+        /* }
 
         .search-box-custom {
             width: calc(100% - 50px);
@@ -54,52 +54,201 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-    </style>
+        } */ */
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #FEE715;
+    margin: 0;
+    max-width: 800px;
+  }
+
+  /* .maindiv {
+    width: 100%;
+    max-width: 1200px; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border:1px solid red;
+  } 
+  */
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="datetime-local"],
+  input[type="number"],
+  select {
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .custom-dropdown {
+    position: relative;
+    width: 99%;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background-color: #00FFAB;
+    color:black;
+    padding-left:5px;
+  }
+
+  .dropdown-field-custom {
+    padding: 10px;
+    background-color: #00FFAB;
+    cursor: pointer;
+    font-size: large;
+  }
+
+  .dropdown-list-custom {
+    position: absolute;
+    width: 100%;
+    background-color: #FEE715;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 100;
+    display: none;
+    color:black;
+  }
+
+  .search-box-custom {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+  }
+
+  .dropdown-item-custom {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+  }
+
+  .dropdown-item-custom:hover {
+    background-color: #f6f6f6;
+  }
+
+  .remove-btn-custom {
+    padding: 8px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .remove-btn-custom:hover {
+    background-color: #ff6666;
+  }
+
+  button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+  .last-field {
+  margin-bottom: 30px; /* Adjust the space for the last label as needed */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between buttons */
+}
+
+button {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #00FFAB;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  color:black;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+#form-template-custom{
+
+}
+
+</style>
+
+
+
 
 <%= form_tag "create_new_expense" do %>
   <%= hidden_field_tag "personal_id", @personnel_id %>
-  <div class="field">
-    <%= label_tag(:date_and_time, "Date and Time:") %>
-    <%= datetime_field_tag(:date_and_time) %>
-  </div>
-  <div class="field">
-    <%= label_tag(:category, "Category:") %>
-    <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
-  </div>
-  <div class="field">
-    <%= label_tag(:payment_type, "Payment Type:") %>
-    <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
-  </div>
-  <div class="field">
-    <%= label_tag(:remarks, "Remarks:") %>
-    <%= text_field_tag(:remarks) %>
-  </div>
-
-  <div id="form-template-custom" style="display: none;">
-    <div class="custom-dropdown">
-      <div class="dropdown-field-custom">Select a name</div>
-      <div class="dropdown-list-custom">
-        <%= text_field_tag :search, nil, placeholder: "Search...", class: "search-box-custom" %>
-        <% @users.each do |user| %>
-          <div class="dropdown-item-custom" data-value="<%= user.id %>">
-            <%= user.name %>
-          </div>
-        <% end %>
-      </div>
-      <input type="number" class="numberFieldCustom" name="price"/>
-      <button class="remove-btn-custom" type="button">Remove</button>
+  <div class="">
+    <div class="field">
+      <%= label_tag(:date_and_time, "Date and Time:") %>
+      <%= datetime_field_tag(:date_and_time) %>
     </div>
-  </div>
+    <div class="field">
+      <%= label_tag(:category, "Category:") %>
+      <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
+    </div>
+    <div class="field">
+      <%= label_tag(:payment_type, "Payment Type:") %>
+      <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
+    </div>
+    <div class="field">
+      <%= label_tag(:remarks, "Remarks:") %>
+      <%= text_area_tag(:remarks) %>
+    </div>
 
-  <div id="forms-container-custom">
-    <!-- Form groups will be dynamically inserted here -->
-  </div>
-  <button id="add-form-btn-custom" type="button">Add Form</button>
-  <button id="submit-btn-custom" type="submit">SPLIT_BILL_PERSON_WISE</button>
+    <div id="form-template-custom" style="display: none;">
+    <%= label_tag(:remarks, "Select Name and Enter Lending Amount:") %>
+      <div class="custom-dropdown">
+        <div class="dropdown-field-custom">Select a name</div>
+        <div class="dropdown-list-custom">
+          <%= text_field_tag :search, nil, placeholder: "Search...", class: "search-box-custom" %>
+          <% @users.each do |user| %>
+            <div class="dropdown-item-custom" data-value="<%= user.id %>">
+              <%= user.name %>
+            </div>
+          <% end %>
+        </div>
+        <input type="number" class="numberFieldCustom" name="price"/>
+        <button class="remove-btn-custom" type="button">Remove</button>
+      </div>
+    </div>
 
-  <div id="data-display-custom">
-    <!-- Added data will be displayed here -->
+    <div id="forms-container-custom">
+      <!-- Form groups will be dynamically inserted here -->
+    </div>
+    <div class="button-container">
+      <button id="add-form-btn-custom" type="button">Add Form</button>
+      <button id="submit-btn-custom" type="submit">SPLIT_BILL_PERSON_WISE</button>
+    </div>
+
+    <div id="data-display-custom">
+      <!-- Added data will be displayed here -->
+    </div>
   </div>
 <% end %>
 

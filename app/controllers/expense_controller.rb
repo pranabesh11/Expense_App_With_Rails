@@ -49,8 +49,18 @@ class ExpenseController < ApplicationController
       
                   # Now you can use item_name and item_amount as needed
                   puts " #{params[:personnel_id]} Item: #{item_name} => Amount: #{item_amount} => #{params[:income_or_expense]} => #{params[:remarks]}  => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]}"
+                    @new_personal_expense = Item.new
+                    @new_personal_expense.item_name = item_name
+                    @new_personal_expense.amount = item_amount
+                    @new_personal_expense.remarks = params[:remarks]
+                    @new_personal_expense.user_id = params[:personnel_id]
+                    @new_personal_expense.date_and_time = params[:date_and_time]
+                    @new_personal_expense.category = params[:category]
+                    @new_personal_expense.payment_type = params[:payment_type]
+                    @new_personal_expense.income_or_expense = params[:income_or_expense]
+                    @new_personal_expense.save
                   end
-                  end
+                end
                
             end
         elsif type_of_button_submitted=="SPLIT_BILL"

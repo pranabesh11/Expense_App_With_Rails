@@ -7,6 +7,9 @@
 
 <%# this is css only for dropdown menu %>
 <style>
+      body{
+        
+      }
       .dropdown {
         position: relative;
         width: 200px;
@@ -56,6 +59,14 @@
         border-bottom: 1px solid #eee;
         background-color: aquamarine;
         border-style: none;
+      }
+      .formfour{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background-color:#101820;
+        color:white;
+        
       }
     </style>
 
@@ -251,7 +262,9 @@
   <%=  'form4' %>
   
   <%# this is form for last form %>
+  <div class="formfour">
   <%= render 'expense/form_four' %>
+  </div>
   <%# this is end form for last button%>
 <% end %>
 
