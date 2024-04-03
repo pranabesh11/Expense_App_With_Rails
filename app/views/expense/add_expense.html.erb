@@ -1,4 +1,4 @@
-<%= link_to "DON'T WANT TO ADD ANY EXPENSE" , users_home_path%>
+<%= link_to "DON'T WANT TO ADD ANY EXPENSE" , users_group_list_path%>
 
 <h1>hello : <%= @type%></h1>
 
@@ -126,71 +126,6 @@
 
 
 
-  <%# this is end of this form %>
-<% elsif @type == 'diff_ex_&_all_users' %>
-  <%=  'form2' %>
-  <%# this is form for second button %>
-  
-  <%= form_tag "create_new_expense" do %>
-
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <%=hidden_field_tag "personnel_id",@user_id%>
-     <div>
-        <%= label_tag :date, 'Date' %>
-        <%= date_field_tag :date, nil %>
-    </div>
-    <div>
-        <%= label_tag :remarks, 'remarks' %>
-        <%= text_field_tag :remarks %>
-    </div>
-   
-    <div>
-        <%= label_tag :item_name, 'Item-Name' %>
-        <%= text_field_tag :item_name, nil %>
-    </div>
-    <div>
-        <%= label_tag :amount, 'amount' %>
-        <%= text_field_tag :amount %>
-    </div>
-    <div>
-        <%= label_tag :expense_of_current_user, 'expense_of_current_user' %>
-        <%= text_field_tag :expense_of_current_user %>
-    </div>
-    <div>
-      <%= label_tag :lend, 'Yes' %>
-      <%= radio_button_tag :lend, true %>
-      <%= label_tag :lend, 'No' %>
-      <%= radio_button_tag :lend, false %>
-    </div>
-    
-    <label>text goes here</label>
-    <input type="text" name="extra">
-    <!--this is for new form-->
-
-    <div id="forms-container">
-      <div class="form-group" id="form-group-0">
-        <%= label_tag 'field_one[0]', 'Field One' %>
-        <%= text_field_tag 'field_one[]', nil, id: 'field_one_0' %>
-
-        <%= label_tag 'field_two[0]', 'Field Two' %>
-        <%= text_field_tag 'field_two[]', nil, id: 'field_two_0' %>
-        
-      </div>
-    </div>
-    <%= button_tag 'Add Another Form', type: 'button', id: 'add-form-btn', class: 'btn btn-primary' %>
-
-    <!--end of this form-->
-    <div>
-        <%= submit_tag "ADD !" %>
-    </div>
-  <% end %>
-
-  <%# this is end of second form %>
-
-
-
-
-
 
 
 <% elsif @type == 'split_bill' %>
@@ -260,10 +195,9 @@
 
 <% elsif @type == 'split_bill_person_wise' %>
   <%=  'form4' %>
-  
   <%# this is form for last form %>
   <div class="formfour">
-  <%= render 'expense/form_four' %>
+    <%= render 'expense/form_four' %>
   </div>
   <%# this is end form for last button%>
 <% end %>

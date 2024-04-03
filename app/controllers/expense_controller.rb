@@ -12,6 +12,19 @@ class ExpenseController < ApplicationController
         p @personnel_id = params[:user_id]
         p "===================================="
     end
+    def tag_a_bill
+        @users = User.all
+        p "**************************"
+         p users=User.all
+        p "**************************"
+        @person = User.find(params[:user_id])
+        p "===================================="
+        p @person
+        p params
+        p @type = params[:extra_param]
+        p @personnel_id = params[:user_id]
+        p "===================================="
+    end
 
     def form_four
         @users = User.all
@@ -63,7 +76,7 @@ class ExpenseController < ApplicationController
                 end
                
             end
-        elsif type_of_button_submitted=="SPLIT_BILL"
+        elsif type_of_button_submitted=="Tag A Bill"
             no_of_person = params[:items].size
             total_price = 0
             params[:field_two].each do |amount|
@@ -77,11 +90,21 @@ class ExpenseController < ApplicationController
                 p "==================================="
             end
         else 
-            prices_field_value = params[:prices].permit!.to_h
-            id_of_all_users = params[:selectedValues].permit!.to_h
+            if params[:prices].is_a?(ActionController::Parameters)
+                prices_field_value = params[:prices].permit!.to_h
+            else
+                prices_field_value = {}
+            end
+        
+            if params[:selectedValues].is_a?(ActionController::Parameters)
+                id_of_all_users = params[:selectedValues].permit!.to_h
+            else
+                id_of_all_users = {}
+            end
+        
             prices_field_value.each_with_index do |(key, value), index|
                 user_id = id_of_all_users[key]
-                p "#{params[:personal_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
+                puts "#{params[:personal_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
             end
         end     
     end

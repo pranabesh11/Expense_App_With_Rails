@@ -12,6 +12,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    
   }
 
   table, th, td {
@@ -21,6 +22,7 @@
   th, td {
     text-align: left;
     padding: 8px;
+    text-align:center;
   }
 
   th {
@@ -102,8 +104,8 @@
           <%end%> 
           <td><%= @names_array[index] %></td> 
             <td>
-              <%= link_to 'SPLIT BILL EVENLY', expense_add_expense_path(user_id: @current_user_email_and_id[0], extra_param: 'split_bill'), class: 'button-24' %><br>
-              <%= link_to 'SPLIT BILL PERSON WISE', expense_add_expense_path(user_id: @current_user_email_and_id[0], extra_param: 'split_bill_person_wise'), class: 'button-24' %>
+              <%= link_to 'TAG A BILL', expense_tag_a_bill_path(user_id: @current_user_email_and_id[0], extra_param: 'split_bill'), class: 'button-24' %><br>
+              <%= link_to 'SPLIT BILL EVENLY', expense_add_expense_path(user_id: @current_user_email_and_id[0], extra_param: 'split_bill_person_wise'), class: 'button-24' %>
             </td>         
         <%end%>   
       </tr>

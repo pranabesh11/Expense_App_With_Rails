@@ -1,0 +1,320 @@
+<style>  
+    #forms-container-custom {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin-bottom: 20px; 
+    }
+    .button-container{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+    }
+
+    .custom-dropdown {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+        position: relative;
+        border: 1px solid #ccc;
+        padding: 10px;
+        background-color: #00203FFF;
+    }
+    .dropdown-field-custom {
+        background-color: #ADEFD1FF;
+        padding: 5px;
+        margin-bottom: 5px; 
+        cursor: pointer;
+        font-size:1.5rem;
+        border-radius:5px;
+    }
+
+    .dropdown-list-custom {
+        display: none; 
+        position: absolute;
+        width: 100%; 
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-height: 200px; 
+        overflow-y: none; 
+        z-index: 100;
+        
+    }
+
+    .search-box-custom {
+        width: 96%;
+        padding: 5px;
+        border: 1px solid #ddd;
+        margin-bottom: 5px; 
+        background-color:#ADEFD1FF;
+        padding-left:5px;
+    }
+
+    .dropdown-item-custom {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding: 5px;
+        border: 3px solid #7A2048 ;
+        margin:2px;
+        cursor: pointer;
+    }
+
+    .dropdown-item-custom:hover {
+        background-color: #f0f0f0;
+    }
+
+    .numberFieldCustom {
+        width: calc(100% - 10px); 
+        padding: 5px;
+        margin-bottom: 5px; 
+        background-color:#ADEFD1FF;
+        font-weight:20px;
+        font-size:15px;
+        text-align:center;
+    }
+
+    .remove-btn-custom {
+        padding: 5px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius:5px;
+    }
+
+    .remove-btn-custom:hover {
+        background-color: #e33e3e;
+    }
+    .other_field {
+        background-color: #f8f8f8; 
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 500px; 
+        margin: auto; 
+    }
+    .field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    input[type="number"],
+    select {
+        padding: 8px;
+        margin: 5px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+
+    .btn{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    .dynamic_form {
+        background-color: #f2f2f2; 
+        padding: 20px; 
+        border-radius: 8px; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        max-width: 200px; 
+        margin: 20px auto; 
+        border:1px solid red;
+    }
+    .main {
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 10px; 
+        justify-content: flex-start; 
+        align-items: stretch; 
+        border:1px solid red;
+        padding: 10px; 
+        margin: 0 auto; 
+        max-width: 100%; 
+    }
+</style>
+
+
+
+
+  
+  <%# this is for split bill form %>
+  <%= form_tag "create_new_expense" do %>
+    
+    <%=hidden_field_tag "personnel_id", @personnel_id%>
+    <%# this is for select tag %>
+    <%# start %>
+    
+    
+        <div id="form-template-custom" style="display: none;">
+            <%= label_tag(:remarks, "Select Name and Enter Lending Amount:") %>
+            <div class="custom-dropdown">
+                <div class="dropdown-field-custom">Select a name 👇</div>
+                <div class="dropdown-list-custom">
+                <%= text_field_tag :search, nil, placeholder: "Search...", class: "search-box-custom" %>
+                <% @users.each do |user| %>
+                    <div class="dropdown-item-custom" data-value="<%= user.id %>">
+                    <%= user.name %>
+                    </div>
+                <% end %>
+                </div>
+                <input type="number" class="numberFieldCustom" name="price" placeholder="Enter the Amount you Lend...."/>
+                <button class="remove-btn-custom" type="button">Remove</button>
+            </div>
+        </div>
+
+        <div id="forms-container-custom">
+        <!-- Form groups will be dynamically inserted here -->
+        </div>
+
+        <div class="button-container">
+        <button id="add-form-btn-custom" type="button" class="button-24">Add Form</button>
+        <%# <button id="submit-btn-custom" type="submit">SPLIT_BILL_PERSON_WISE</button> %>
+        </div>
+
+        <div id="data-display-custom">
+        <!-- Added data will be displayed here -->
+        </div>
+    
+    <%# end %>
+    <hr>
+    
+
+    <%# end of select tag %>
+    <div class="other_field">
+        <div class="field">
+        <%= label_tag(:date_and_time, "Date and Time:") %>
+        <%= datetime_field_tag(:date_and_time) %>
+        </div>
+
+        <div class="field">
+        <%= label_tag(:category, "Category:") %>
+        <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
+        </div>
+
+        <div class="field">
+        <%= label_tag(:payment_type, "Payment Type:") %>
+        <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
+        </div>
+        
+        <div class="field">
+        <%= label_tag(:remarks, "Remarks:") %>
+        <%= text_field_tag(:remarks) %>
+        </div>
+        <div class="btn">
+        <%= submit_tag("Tag A Bill" , class: 'button-24')%>
+        </div>
+    </div>
+    
+ <%end%>
+  <%# this is end of split bill  form %>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formsContainerCustom = document.getElementById('forms-container-custom');
+    const addFormBtnCustom = document.getElementById('add-form-btn-custom');
+    let formCount = 0; // Counter to ensure unique names for dynamically added elements
+
+    // Function to create a new form group
+    function createFormGroupCustom() {
+        const templateCustom = document.getElementById('form-template-custom').cloneNode(true);
+        templateCustom.style.display = 'block';
+        templateCustom.id = '';
+
+        const dropdownFieldCustom = templateCustom.querySelector('.dropdown-field-custom');
+        const dropdownListCustom = templateCustom.querySelector('.dropdown-list-custom');
+        const numberFieldCustom = templateCustom.querySelector('.numberFieldCustom');
+        const hiddenInput = document.createElement('input');
+
+        hiddenInput.type = 'hidden';
+        hiddenInput.className = 'selected-value-input';
+        hiddenInput.name = `selectedValues[${formCount}]`; // Array-like name to capture all values
+        numberFieldCustom.name = `prices[${formCount}]`; // Unique name for each price input
+
+        // dropdownFieldCustom.addEventListener('click', function(event) {
+        //     // Toggle display of dropdown list
+        //     dropdownListCustom.style.display = dropdownListCustom.style.display === 'block' ? 'none' : 'block';
+        //     event.stopPropagation();
+        // });
+        dropdownFieldCustom.addEventListener('click', function(event) {
+        const currentDisplay = dropdownListCustom.style.display;
+        document.querySelectorAll('.dropdown-list-custom').forEach(function(dropdown) {
+            dropdown.style.display = 'none';
+        });
+        dropdownListCustom.style.display = currentDisplay === 'block' ? 'none' : 'block';
+        event.stopPropagation();
+        });
+
+
+        dropdownListCustom.addEventListener('click', function(event) {
+            // Set selected value to dropdown field and hidden input
+            let target = event.target;
+            if (target.classList.contains('dropdown-item-custom')) {
+                dropdownFieldCustom.textContent = target.textContent.trim();
+                hiddenInput.value = target.dataset.value;
+                dropdownListCustom.style.display = 'none';
+                templateCustom.appendChild(hiddenInput);
+            }
+        });
+
+        // Prevent the dropdown from closing when clicking inside the search box
+        const searchBoxCustom = templateCustom.querySelector('.search-box-custom');
+        searchBoxCustom.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+
+        searchBoxCustom.addEventListener('keyup', function() {
+            // Filter dropdown items based on search query
+            const queryCustom = this.value.toLowerCase();
+            const itemsCustom = dropdownListCustom.querySelectorAll('.dropdown-item-custom');
+            itemsCustom.forEach(itemCustom => {
+                const textCustom = itemCustom.textContent.toLowerCase();
+                itemCustom.style.display = textCustom.includes(queryCustom) ? '' : 'none';
+            });
+        });
+
+        const removeBtnCustom = templateCustom.querySelector('.remove-btn-custom');
+        removeBtnCustom.addEventListener('click', function(event) {
+            // Remove the form group from the DOM
+            event.preventDefault();
+            templateCustom.remove();
+        });
+
+        formsContainerCustom.appendChild(templateCustom);
+        formCount++; // Increment the counter for the next form group
+    }
+    document.addEventListener('click', function(event) {
+        const openedDropdown = document.querySelector('.dropdown-list-custom:not([style*="display: none"])');
+        if (openedDropdown && !openedDropdown.contains(event.target) && !dropdownFieldCustom.contains(event.target)) {
+            openedDropdown.style.display = 'none';
+        }
+    });
+
+
+    // Prevent default form submission for 'Add Form' button
+    addFormBtnCustom.addEventListener('click', function(event) {
+        event.preventDefault();
+        createFormGroupCustom();
+    });
+
+    // Optionally, initialize one form group on page load if needed
+     createFormGroupCustom();
+     createFormGroupCustom();
+     createFormGroupCustom();
+});
+
+</script>
