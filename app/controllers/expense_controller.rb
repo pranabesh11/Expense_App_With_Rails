@@ -12,8 +12,23 @@ class ExpenseController < ApplicationController
         p @personnel_id = params[:user_id]
         p "===================================="
     end
+    def split_a_bill
+        @users = User.all
+        @group_id = params[:group_id]
+        p "**************************"
+         p users=User.all
+        p "**************************"
+        @person = User.find(params[:user_id])
+        p "===================================="
+        p @person
+        p params
+        p @type = params[:extra_param]
+        p @personnel_id = params[:user_id]
+        p "===================================="
+    end
     def tag_a_bill
         @users = User.all
+        @group_id = params[:group_id]
         p "**************************"
          p users=User.all
         p "**************************"
@@ -77,18 +92,15 @@ class ExpenseController < ApplicationController
                
             end
         elsif type_of_button_submitted=="Tag A Bill"
-            no_of_person = params[:items].size
-            total_price = 0
-            params[:field_two].each do |amount|
-                total_price+=amount.to_i
+            p "***********************************"
+            p params
+            date_and_time = params[:date_and_time]
+            category = params[:category]
+            payment_type = params[:payment_type]
+            params[:selectedValues].each do |key,value|
+                p "#{params[:personnel_id]} => #{params[:prices][key]} => #{value} => #{date_and_time} => #{category} => #{payment_type} => #{params[:group_unique_id]}}"
             end
-            each_person_cost = total_price/no_of_person
-            all_items = params[:field_one].join(" , ")
-            params[:items].each do |person|
-                p "==================================="
-                puts "#{person} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{all_items} => #{each_person_cost} => #{params[:remarks]}"
-                p "==================================="
-            end
+            p "*************************************"
         else 
             if params[:prices].is_a?(ActionController::Parameters)
                 prices_field_value = params[:prices].permit!.to_h
@@ -101,11 +113,46 @@ class ExpenseController < ApplicationController
             else
                 id_of_all_users = {}
             end
-        
+            contributions = {}
             prices_field_value.each_with_index do |(key, value), index|
                 user_id = id_of_all_users[key]
-                puts "#{params[:personal_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
+                # puts "#{params[:personnel_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
+                contributions[user_id] = value 
             end
+            prices_field_value.each_with_index do |(key, value), index|
+                user_id = id_of_all_users[key]
+                # puts "#{params[:personnel_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
+                # Calculate total amount and the average contribution
+                total_amount = contributions.values.sum
+                average_contribution = total_amount.to_f / contributions.size
+                # Calculate who needs to get or give money
+                to_receive = {}
+                to_give = {} 
+                contributions.each do |person, amount|
+                    balance = amount - average_contribution
+                    if balance > 0
+                      to_receive[person] = balance
+                    elsif balance < 0
+                      to_give[person] = -balance
+                    end
+                end
+                # Determine transactions
+                to_give.each do |giver, amount_give|
+                    to_receive.each do |receiver, amount_receive|
+                    next if amount_give <= 0 || amount_receive <= 0
+                
+                    amount_to_transfer = [amount_give, amount_receive].min
+                    puts "#{giver} should give #{amount_to_transfer.round(2)} rs to #{receiver}"
+                
+                    to_give[giver] -= amount_to_transfer
+                    to_receive[receiver] -= amount_to_transfer
+                
+                    break if to_give[giver] <= 0
+                    end
+                end
+
+            end
+            p contributions
         end     
     end
 

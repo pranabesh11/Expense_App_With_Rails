@@ -164,21 +164,23 @@
 
 
 
+
   
   <%# this is for split bill form %>
   <%= form_tag "create_new_expense" do %>
-    <%=hidden_field_tag "group_unique_id", @group_id%>
+    
     <%=hidden_field_tag "personnel_id", @personnel_id%>
+    <%=hidden_field_tag "group_unique_id", @group_id%>
     <%# this is for select tag %>
     <%# start %>
-    <div class="text">Tag any bill to any Number Of person</div>
+    <div class="text">Split any bill to all person</div>
     
         <div id="form-template-custom" style="display: none;">
-            <%= label_tag(:remarks, "Select Name and Enter Lending Amount:") %>
+            <%= label_tag(:remarks, "Who Gave Money And How Much:") %>
             <div class="custom-dropdown">
                 <div class="dropdown-field-custom">Select a name 🔽</div>
                 <div class="dropdown-list-custom">
-                <%= text_field_tag :search, nil, placeholder: "Search...", class: "search-box-custom" %>
+                <%= text_field_tag :search, nil, placeholder: "Search Name...", class: "search-box-custom" %>
                 <% @users.each do |user| %>
                     <div class="dropdown-item-custom" data-value="<%= user.id %>">
                     <%= user.name %>
@@ -229,7 +231,7 @@
         <%= text_field_tag(:remarks) %>
         </div>
         <div class="btn">
-        <%= submit_tag("Tag A Bill" , class: 'button-24')%>
+        <%= submit_tag("Split A Bill" , class: 'button-24')%>
         </div>
     </div>
     
