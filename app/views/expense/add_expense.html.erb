@@ -1,74 +1,131 @@
-<%= link_to "DON'T WANT TO ADD ANY EXPENSE" , users_group_list_path%>
+<%= link_to "Back" , users_home_path,class:"backbtn"%>
 
-<h1>hello : <%= @type%></h1>
 
-<h1>ADD ANY EXPENSE HERE</h1>
-<p>User ID: <%= @personnel_id%></p>
 
-<%# this is css only for dropdown menu %>
-<style>
-      body{
-        
-      }
-      .dropdown {
-        position: relative;
-        width: 200px;
-        border: 1px solid red;
-      }
+  <h1 class="header">Add Personal Expense Here</h1>
 
-      .dropdown-field {
-        padding: 10px;
-        background-color: #f0f0f0;
-        cursor: pointer;
-        font-size: large;
-        
-      }
 
-      .dropdown-list {
-        position: absolute;
-        width: 100%;
-        background-color: #fff;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        z-index: 100;
-        
-      }
 
-      .search-box {
-        width: calc(100% - 40px);
-        padding: 10px;
-        margin: 10px;
-        border: 1px solid #ddd;
-        background-color: rgb(168, 223, 168);
-        border-radius: 10px;
-      }
+  <style>
+    .backbtn{
+      height:100px;
+      width:100px;
 
-      .dropdown-item {
-        padding: 10px;
-        cursor: pointer;
-        border-bottom: 1px solid #eee;
-        
-      }
+    }
+    .header{
+      font-size:2rem;
+      font-family:cursive;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
 
-      .dropdown-item:hover {
-        background-color: #f6f6f6;
-      }
-      #select-all-btn{
-        padding: 10px;
-        cursor: pointer;
-        width: 200px;
-        border-bottom: 1px solid #eee;
-        background-color: aquamarine;
-        border-style: none;
-      }
-      .formfour{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background-color:#101820;
-        color:white;
-        
-      }
-    </style>
+/* Target the form itself to control its size */
+form {
+    max-width: 500px; /* Adjust the max-width as needed to make the form smaller */
+    width: 100%; /* This makes the form take the full width up to its max-width */
+    margin: auto; /* This centers the form horizontally if it's smaller than the container */
+    padding: 20px; /* Add some padding inside the form */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow around the form */
+    background-color: #fff; /* Optional: sets a background color for the form */
+    border-radius: 8px; /* Optional: rounds the corners of the form */
+}
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .field {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="datetime-local"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+
+  .form-group {
+    background-color: #f4f4f4;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  #add-form-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+  }
+
+  #add-form-btn:hover {
+    background-color: #0056b3;
+  }
+
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+
+  input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #218838;
+  }
+  /* Existing styles... */
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* New style for radio buttons */
+.radio-buttons {
+    flex-direction: row;
+    align-items: center; /* To align items vertically center */
+}
+
+.label, .input, select {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.remove-form-btn{
+
+}
+/* You may need to adjust the width or margins of the labels and inputs to fit your design */
+
+  
+</style>
 
 
 
@@ -77,19 +134,20 @@
 
 
 <% if @type == 'personal_expense' %>
-
-  <%=  'form1' %>
+  <div class="form-container">
+  <%# <%=  'form1' %>
   <%# this is starting of this form %>
   <%= form_tag "create_new_expense" do %>
 
     <%=hidden_field_tag "personnel_id", @personnel_id%>
-    <div class="field">
+    <div class="field radio-buttons">
       <%= label_tag(:income_or_expense, "Income or Expense:") %>
       <%= radio_button_tag(:income_or_expense, 'income') %>
       <%= label_tag(:income_or_expense_income, "Income") %>
       <%= radio_button_tag(:income_or_expense, 'expense') %>
       <%= label_tag(:income_or_expense_expense, "Expense") %>
     </div>
+
     <div class="field">
       <%= label_tag(:date_and_time, "Date and Time:") %>
       <%= datetime_field_tag(:date_and_time) %>
@@ -122,7 +180,7 @@
 
     <%= submit_tag("Create Item") %>
   <% end %>
-
+</div>
 
 
 
