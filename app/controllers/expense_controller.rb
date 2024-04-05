@@ -114,22 +114,34 @@ class ExpenseController < ApplicationController
                 id_of_all_users = {}
             end
             contributions = {}
+            present_person = []
+
             prices_field_value.each_with_index do |(key, value), index|
                 user_id = id_of_all_users[key]
                 # puts "#{params[:personnel_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
-                contributions[user_id] = value 
+                p contributions[user_id] = value 
+                present_person<< user_id.to_i
             end
-            prices_field_value.each_with_index do |(key, value), index|
-                user_id = id_of_all_users[key]
+            all_person_id_group_wise = Cluster.where(groupIduuid:params[:group_unique_id]).pluck(:userId)
+                        
+            p left_person = all_person_id_group_wise - present_person
+            left_person.each do |ids|
+                contributions[ids.to_s] = "0"
+            end
+            
+            
+            #prices_field_value.each_with_index do |(key, value), index|
+                #user_id = id_of_all_users[key]
                 # puts "#{params[:personnel_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{user_id} => #{value}"
                 # Calculate total amount and the average contribution
-                total_amount = contributions.values.sum
-                average_contribution = total_amount.to_f / contributions.size
+                p no_of_people_in_group = Cluster.where(groupIduuid:params[:group_unique_id]).count
+                total_amount = contributions.values.map(&:to_i).sum
+                average_contribution = total_amount.to_f / no_of_people_in_group
                 # Calculate who needs to get or give money
                 to_receive = {}
                 to_give = {} 
                 contributions.each do |person, amount|
-                    balance = amount - average_contribution
+                    balance = amount.to_i - average_contribution
                     if balance > 0
                       to_receive[person] = balance
                     elsif balance < 0
@@ -142,7 +154,7 @@ class ExpenseController < ApplicationController
                     next if amount_give <= 0 || amount_receive <= 0
                 
                     amount_to_transfer = [amount_give, amount_receive].min
-                    puts "#{giver} should give #{amount_to_transfer.round(2)} rs to #{receiver}"
+                    puts "#{giver} should give #{amount_to_transfer.round(2)} rs to #{receiver} => #{params[:personnel_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{params[:group_unique_id]}"
                 
                     to_give[giver] -= amount_to_transfer
                     to_receive[receiver] -= amount_to_transfer
@@ -151,7 +163,7 @@ class ExpenseController < ApplicationController
                     end
                 end
 
-            end
+            #end
             p contributions
         end     
     end
