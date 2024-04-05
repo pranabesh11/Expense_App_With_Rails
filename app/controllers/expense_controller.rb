@@ -166,7 +166,5 @@ class ExpenseController < ApplicationController
             #end
             p contributions
         end     
-    end
-
-    
+    end    
 end
