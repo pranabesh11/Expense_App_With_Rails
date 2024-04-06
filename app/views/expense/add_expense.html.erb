@@ -1,4 +1,4 @@
-<%= link_to "Back" , users_home_path,class:"backbtn"%>
+<%= link_to "Back" , users_home_path,class:"button-24"%>
 
 
 
@@ -24,18 +24,17 @@
     justify-content: center;
     align-items: center;
     
-}
+  }
 
-/* Target the form itself to control its size */
-form {
-    max-width: 500px; /* Adjust the max-width as needed to make the form smaller */
-    width: 100%; /* This makes the form take the full width up to its max-width */
-    margin: auto; /* This centers the form horizontally if it's smaller than the container */
-    padding: 20px; /* Add some padding inside the form */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow around the form */
-    background-color: #fff; /* Optional: sets a background color for the form */
-    border-radius: 8px; /* Optional: rounds the corners of the form */
-}
+  form {
+      max-width: 500px; /* Adjust the max-width as needed to make the form smaller */
+      width: 100%; /* This makes the form take the full width up to its max-width */
+      margin: auto; /* This centers the form horizontally if it's smaller than the container */
+      padding: 20px; /* Add some padding inside the form */
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow around the form */
+      background-color: #fff; /* Optional: sets a background color for the form */
+      border-radius: 8px; /* Optional: rounds the corners of the form */
+  }
   body {
     font-family: Arial, sans-serif;
   }
@@ -63,31 +62,17 @@ form {
 
   .form-group {
     background-color: #f4f4f4;
-    padding: 15px;
+    padding: 30px;
     margin-bottom: 10px;
     border-radius: 5px;
   }
 
-  #add-form-btn {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: block;
-    margin-top: 10px;
-  }
-
-  #add-form-btn:hover {
-    background-color: #0056b3;
-  }
 
   input[type="radio"] {
     margin-right: 5px;
   }
 
-  input[type="submit"] {
+  /* input[type="submit"] {
     background-color: #28a745;
     color: white;
     padding: 8px 16px;
@@ -99,7 +84,7 @@ form {
 
   input[type="submit"]:hover {
     background-color: #218838;
-  }
+  } */
   /* Existing styles... */
 
 .field {
@@ -119,11 +104,64 @@ form {
     width: 100%;
     margin-bottom: 5px;
 }
-.remove-form-btn{
 
+/* CSS */
+.remove-form-btn {
+  appearance: none;
+  background-color: #ff4742;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
 }
-/* You may need to adjust the width or margins of the labels and inputs to fit your design */
 
+.remove-form-btn:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.remove-form-btn:hover {
+  background-color: #ff4742;
+}
+
+.remove-form-btn:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.remove-form-btn:disabled {
+  background-color: #ff4742;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.remove-form-btn:active {
+  background-color: #ff4742;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.btn-div{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
   
 </style>
 
@@ -170,15 +208,16 @@ form {
           <%= number_field_tag 'field_two[]', nil, id: 'field_two_0' %>     
         </div>
       </div>
-      <%= button_tag 'Add Another Form', type: 'button', id: 'add-form-btn', class: 'btn btn-primary' %>
+      <%= button_tag 'Add Another Form', type: 'button', id: 'add-form-btn', class: 'button-24' %>
 
     <!--end of this form-->
     <div class="field">
       <%= label_tag(:remarks, "Remarks:") %>
       <%= text_field_tag(:remarks) %>
     </div>
-
-    <%= submit_tag("Create Item") %>
+    <div class="btn-div">
+      <%= submit_tag("Create Item", class:'button-24') %>
+    </div>
   <% end %>
 </div>
 
