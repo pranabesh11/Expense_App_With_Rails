@@ -107,6 +107,7 @@ class ExpenseController < ApplicationController
                 @tag_a_bill_to_anyone.category = category
                 @tag_a_bill_to_anyone.payment_type = payment_type
                 @tag_a_bill_to_anyone.group_unique_id = params[:group_unique_id]
+                @tag_a_bill_to_anyone.remarks = params[:remarks]
                 @tag_a_bill_to_anyone.save
             end
             redirect_to users_group_list_path
@@ -174,6 +175,7 @@ class ExpenseController < ApplicationController
                     @split_bill_to_all.payment_type = params[:payment_type]
                     @split_bill_to_all.group_unique_id = params[:group_unique_id]
                     @split_bill_to_all.date_and_time = params[:date_and_time]
+                    @split_bill_to_all.remarks = params[:remarks]
                     @split_bill_to_all.save
 
                     to_give[giver] -= amount_to_transfer

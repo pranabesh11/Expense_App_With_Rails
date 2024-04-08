@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_08_094755) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_08_111941) do
   create_table "clusters", force: :cascade do |t|
     t.string "groupname"
     t.integer "userId"
@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_08_094755) do
     t.datetime "date_and_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remarks"
   end
 
   create_table "tag_a_bills", force: :cascade do |t|
@@ -61,6 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_08_094755) do
     t.datetime "date_and_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remarks"
   end
 
   create_table "tiny_clusters", force: :cascade do |t|

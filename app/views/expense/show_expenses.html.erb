@@ -1,1 +1,80 @@
-this page is for showing expences !
+<style>
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:cursive;
+    font-size:2rem;
+}   
+
+.maindiv{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:row;
+}
+.unpaid{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:row;
+    background-color:#FF7ED4;
+    margin:10px;
+    border-radius:10px;
+}
+.paid{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:row;
+    background-color:#C5EBAA;
+     margin:10px;
+    border-radius:10px; 
+}
+
+</style>
+
+<h1 class="header">Here You Can See All Expense !</h1>
+<%10.times do |val|%>
+
+<div class="maindiv">
+    <div class="unpaid">
+		<ul class="list">
+			<div class="card">
+				<div class="logo">💸</div>
+				<div class="person">borrower</div>
+                <div class="person">lender</div>
+                <div class="person">Amount</div>
+                <div class="person">datetime</div>
+                <div class="person">category</div>
+                <div class="person">payment type</div>
+				<div class="remarks">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, voluptatem.</div>
+			</div>
+		</ul>	
+    
+        <div>
+            <button class="button-24">DELETE</button>
+            <button class="button-24">PAYMENT DONE</button>
+        </div>
+    </div>
+    <div class="paid">
+        <ul class="list">
+			<div class="card">
+				<div class="logo">💸</div>
+				<div class="person">borrower</div>
+                <div class="person">lender</div>
+                <div class="person">Amount</div>
+                <div class="person">datetime</div>
+                <div class="person">category</div>
+                <div class="person">payment type</div>
+				<div class="remarks">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, voluptatem.</div>
+			</div>
+		</ul>	
+    
+        <div>
+            <button class="button-24">DELETE</button>
+        </div>
+    </div>
+
+</div>
+<%end%>
