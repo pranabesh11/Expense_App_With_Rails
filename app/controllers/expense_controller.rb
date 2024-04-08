@@ -99,7 +99,17 @@ class ExpenseController < ApplicationController
             payment_type = params[:payment_type]
             params[:selectedValues].each do |key,value|
                 p "#{params[:personnel_id]} => #{params[:prices][key]} => #{value} => #{date_and_time} => #{category} => #{payment_type} => #{params[:group_unique_id]}}"
+                @tag_a_bill_to_anyone = TagABill.new
+                @tag_a_bill_to_anyone.lender = params[:personnel_id]
+                @tag_a_bill_to_anyone.amount = params[:prices][key]
+                @tag_a_bill_to_anyone.borrower = value
+                @tag_a_bill_to_anyone.date_and_time = date_and_time
+                @tag_a_bill_to_anyone.category = category
+                @tag_a_bill_to_anyone.payment_type = payment_type
+                @tag_a_bill_to_anyone.group_unique_id = params[:group_unique_id]
+                @tag_a_bill_to_anyone.save
             end
+            redirect_to users_group_list_path
             p "*************************************"
         else 
             if params[:prices].is_a?(ActionController::Parameters)
@@ -155,14 +165,24 @@ class ExpenseController < ApplicationController
                 
                     amount_to_transfer = [amount_give, amount_receive].min
                     puts "#{giver} should give #{amount_to_transfer.round(2)} rs to #{receiver} => #{params[:personnel_id]} => #{params[:date_and_time]} => #{params[:category]} => #{params[:payment_type]} => #{params[:group_unique_id]}"
-                
+                    @split_bill_to_all = SplitABill.new
+                    @split_bill_to_all.borrower = giver
+                    @split_bill_to_all.amount = amount_to_transfer.round(2)
+                    @split_bill_to_all.lender = receiver
+                    @split_bill_to_all.who_entered = params[:personnel_id]
+                    @split_bill_to_all.category = params[:category]
+                    @split_bill_to_all.payment_type = params[:payment_type]
+                    @split_bill_to_all.group_unique_id = params[:group_unique_id]
+                    @split_bill_to_all.date_and_time = params[:date_and_time]
+                    @split_bill_to_all.save
+
                     to_give[giver] -= amount_to_transfer
                     to_receive[receiver] -= amount_to_transfer
                 
                     break if to_give[giver] <= 0
                     end
                 end
-
+                redirect_to users_group_list_path
             #end
             p contributions
         end     

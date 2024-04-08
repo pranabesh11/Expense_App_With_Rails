@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  personnel_id: 1
+  amount: 9.99
+  category: MyString
+  payment_type: MyString
+  group_unique_id: MyString
+  date_and_time: 2024-04-08 12:41:32
+
+two:
+  personnel_id: 1
+  amount: 9.99
+  category: MyString
+  payment_type: MyString
+  group_unique_id: MyString
+  date_and_time: 2024-04-08 12:41:32

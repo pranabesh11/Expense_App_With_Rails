@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_29_083413) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_08_094755) do
   create_table "clusters", force: :cascade do |t|
     t.string "groupname"
     t.integer "userId"
@@ -34,6 +34,31 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_083413) do
 
   create_table "product_names", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "split_a_bills", force: :cascade do |t|
+    t.integer "borrower"
+    t.decimal "amount"
+    t.integer "lender"
+    t.string "who_entered"
+    t.string "category"
+    t.string "payment_type"
+    t.string "group_unique_id"
+    t.datetime "date_and_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tag_a_bills", force: :cascade do |t|
+    t.integer "lender"
+    t.integer "borrower"
+    t.decimal "amount"
+    t.string "category"
+    t.string "payment_type"
+    t.string "group_unique_id"
+    t.datetime "date_and_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

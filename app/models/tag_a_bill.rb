@@ -1,0 +1,2 @@
+class TagABill < ApplicationRecord
+end

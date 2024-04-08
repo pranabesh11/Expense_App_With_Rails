@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lender: 1
+  borrower: 1
+  amount: 9.99
+  category: MyString
+  payment_type: MyString
+  group_unique_id: MyString
+  date_and_time: 2024-04-08 13:02:23
+
+two:
+  lender: 1
+  borrower: 1
+  amount: 9.99
+  category: MyString
+  payment_type: MyString
+  group_unique_id: MyString
+  date_and_time: 2024-04-08 13:02:23
