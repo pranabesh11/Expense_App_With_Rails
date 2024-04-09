@@ -55,10 +55,18 @@ class ExpenseController < ApplicationController
 
     def show_expenses
         p "===================="
-        p tag_bill_from_a_person = TagABill.where(lender: current_user.id.to_s)
-        p split_bill_from_a_person = SplitABill.where(lender:current_user.id.to_s)
-        p @bill_from_a_person = tag_bill_from_a_person + split_bill_from_a_person
+        tag_bill_from_a_person_from = TagABill.where(lender: current_user.id.to_s)
+        split_bill_from_a_person_from = SplitABill.where(lender:current_user.id.to_s)
+        @bill_from_a_person = tag_bill_from_a_person_from + split_bill_from_a_person_from
+        tag_bill_from_a_person_to = TagABill.where(borrower: current_user.id.to_s)
+        split_bill_from_a_person_to = SplitABill.where(borrower:current_user.id.to_s)
+        @bill_to_a_person = tag_bill_from_a_person_to + split_bill_from_a_person_to
     end
+    def pay_bill
+        p "===========params for payment done============="
+        p "#{params[:borrower]} => #{params[:unique_expense_id]}"
+    end
+    
     
     def create_new_expense
         
