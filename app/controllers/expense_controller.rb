@@ -54,7 +54,10 @@ class ExpenseController < ApplicationController
     end
 
     def show_expenses
-        
+        p "===================="
+        p tag_bill_from_a_person = TagABill.where(lender: current_user.id.to_s)
+        p split_bill_from_a_person = SplitABill.where(lender:current_user.id.to_s)
+        p @bill_from_a_person = tag_bill_from_a_person + split_bill_from_a_person
     end
     
     def create_new_expense
@@ -62,7 +65,7 @@ class ExpenseController < ApplicationController
         p "=================================="
         p params
         type_of_button_submitted = params[:commit]
-        if type_of_button_submitted=="Create Item"
+        if type_of_button_submitted=="Create Item"           
             params.each do |key,value|
           
                 if key == "field_one"
@@ -92,6 +95,7 @@ class ExpenseController < ApplicationController
                
             end
         elsif type_of_button_submitted=="Tag A Bill"
+            unique_expense_id = SecureRandom.uuid
             p "***********************************"
             p params
             date_and_time = params[:date_and_time]
@@ -108,11 +112,13 @@ class ExpenseController < ApplicationController
                 @tag_a_bill_to_anyone.payment_type = payment_type
                 @tag_a_bill_to_anyone.group_unique_id = params[:group_unique_id]
                 @tag_a_bill_to_anyone.remarks = params[:remarks]
+                @tag_a_bill_to_anyone.unique_expense_id = unique_expense_id
                 @tag_a_bill_to_anyone.save
             end
             redirect_to users_group_list_path
             p "*************************************"
         else 
+            unique_expense_id = SecureRandom.uuid
             if params[:prices].is_a?(ActionController::Parameters)
                 prices_field_value = params[:prices].permit!.to_h
             else
@@ -176,6 +182,7 @@ class ExpenseController < ApplicationController
                     @split_bill_to_all.group_unique_id = params[:group_unique_id]
                     @split_bill_to_all.date_and_time = params[:date_and_time]
                     @split_bill_to_all.remarks = params[:remarks]
+                    @split_bill_to_all.unique_expense_id = unique_expense_id
                     @split_bill_to_all.save
 
                     to_give[giver] -= amount_to_transfer

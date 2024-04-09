@@ -9,39 +9,97 @@
 
 .maindiv{
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:center;
     flex-direction:row;
 }
-.unpaid{
+/* .unpaid{
     display:flex;
     align-items:center;
     justify-content:center;
-    flex-direction:row;
+    flex-direction:column;
     background-color:#FF7ED4;
     margin:10px;
     border-radius:10px;
-}
+} */
 .paid{
     display:flex;
     align-items:center;
     justify-content:center;
     flex-direction:row;
     background-color:#C5EBAA;
-     margin:10px;
+    margin:10px;
     border-radius:10px; 
+}
+.borrower{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:row;
+    background-color:#FB9AD1;
+    margin:10px;
+    border-radius:10px;
+}
+.heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    flex-direction:row;
+    font-family:cursive;
+}
+.all_unpaid{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    flex-direction:row;
+    margin:10px;
+    border-radius:10px;
+    background-color:#8B93FF;
 }
 
 </style>
 
 <h1 class="header">Here You Can See All Expense !</h1>
-<%10.times do |val|%>
+<div class="heading">
+    <h3>Pending Payment From❌</h3>
+    <h3>Pending Payment To❌</h3>
+    <h3>Payment Done ✅</h3>
+</div>
+
+
+
+
+<%# <%10.times do |val|%> 
 
 <div class="maindiv">
+    
     <div class="unpaid">
-		<ul class="list">
+        <%@bill_from_a_person.each do |expense|%>
+            <div class="all_unpaid">
+                <ul class="list">
+                    <div class="card">
+                        <div class="logo">❌</div>
+                        <div class="person"><%=User.find(expense.borrower).name%></div>
+                        <div class="person"><%=expense.amount%></div>
+                        <div class="datetime"><%=expense.date_and_time%></div>
+                        <div class="person"><%=expense.category%></div>
+                        <div class="person"><%=expense.payment_type%></div>
+                        <div class="remarks"><%=expense.remarks%></div>
+                    </div>
+                </ul>	
+            
+                <div>
+                    <button class="button-24">DELETE</button>
+                    <button class="button-24">PAYMENT DONE</button>
+                </div>
+            </div>
+        <%end%>
+    </div>
+
+    <div class="borrower">
+        <ul class="list">
 			<div class="card">
-				<div class="logo">💸</div>
+				<div class="logo">❌</div>
 				<div class="person">borrower</div>
                 <div class="person">lender</div>
                 <div class="person">Amount</div>
@@ -54,13 +112,13 @@
     
         <div>
             <button class="button-24">DELETE</button>
-            <button class="button-24">PAYMENT DONE</button>
         </div>
     </div>
+    
     <div class="paid">
         <ul class="list">
 			<div class="card">
-				<div class="logo">💸</div>
+				<div class="logo">✅</div>
 				<div class="person">borrower</div>
                 <div class="person">lender</div>
                 <div class="person">Amount</div>
@@ -77,4 +135,4 @@
     </div>
 
 </div>
-<%end%>
+<%# <%end%> 
