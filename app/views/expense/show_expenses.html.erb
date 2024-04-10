@@ -90,7 +90,7 @@
             
                 <div>
                     <button class="button-24">DELETE</button>
-                    <%= link_to 'PAYMENT DONE', expense_pay_bill_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id) , class: 'button-24'%>
+                    <%= link_to 'PAYMENT DONE', expense_show_expenses_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id) , class: 'button-24'%>
                 </div>
             </div>
         <%end%>
