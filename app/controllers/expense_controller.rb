@@ -54,9 +54,6 @@ class ExpenseController < ApplicationController
     end
 
     def show_expenses
-        p "===================="
-        p params[:borrower]
-        p params[:unique_expense_id]
         p "==========this is params =============="
         tag_bill_from_a_person_from = TagABill.where(lender: current_user.id.to_s)
         split_bill_from_a_person_from = SplitABill.where(lender:current_user.id.to_s)
@@ -64,6 +61,40 @@ class ExpenseController < ApplicationController
         tag_bill_from_a_person_to = TagABill.where(borrower: current_user.id.to_s)
         split_bill_from_a_person_to = SplitABill.where(borrower:current_user.id.to_s)
         @bill_to_a_person = tag_bill_from_a_person_to + split_bill_from_a_person_to
+
+        # code to add payment status
+        p "=========all parama passing wihle clicking the payemnt done btn ==========="
+        p params[:lender]
+        p params[:unique_expense_id]
+        p type_of_btn_clicked = params[:type_of_btn]
+        # p current_user_id = User.find_by(current_user.email)
+        p current_user.id
+
+        if type_of_btn_clicked == "payment_to"
+            p "===========params for payment done============="
+            present_in_tag_a_bill_table = TagABill.find_by(lender: params[:lender], unique_expense_id: params[:unique_expense_id], borrower:current_user.id)
+            present_in_split_a_bill_table = SplitABill.find_by(lender: params[:lender], unique_expense_id: params[:unique_expense_id] , borrower:current_user.id)
+            if present_in_tag_a_bill_table
+                present_in_tag_a_bill_table.update(payment_status: "Pending")
+            elsif present_in_split_a_bill_table
+                present_in_split_a_bill_table.update(payment_status: "Pending")
+            else
+                p "Expense not found in any table."
+            end
+        elsif type_of_btn_clicked == "payment_form"
+            p "===========params for payment done============="
+            present_in_tag_a_bill_table = TagABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id], lender:current_user.id)
+            present_in_split_a_bill_table = SplitABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id] , lender:current_user.id)
+            if present_in_tag_a_bill_table
+                present_in_tag_a_bill_table.update(payment_status: "Payment Done")
+            elsif present_in_split_a_bill_table
+                present_in_split_a_bill_table.update(payment_status: "Payment Done")
+            else
+                p "Expense not found in any table."
+            end
+        else
+            p "Something Happened I don't know anything about"
+        end
     end
     def pay_bill
         p "===========params for payment done============="
