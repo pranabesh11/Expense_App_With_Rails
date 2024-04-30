@@ -71,7 +71,7 @@ class ExpenseController < ApplicationController
         p current_user.id
 
         if type_of_btn_clicked == "payment_to"
-            p "===========params for payment done============="
+            p "===========params for payment done from borrower side============="
             present_in_tag_a_bill_table = TagABill.find_by(lender: params[:lender], unique_expense_id: params[:unique_expense_id], borrower:current_user.id)
             present_in_split_a_bill_table = SplitABill.find_by(lender: params[:lender], unique_expense_id: params[:unique_expense_id] , borrower:current_user.id)
             if present_in_tag_a_bill_table
@@ -82,7 +82,7 @@ class ExpenseController < ApplicationController
                 p "Expense not found in any table."
             end
         elsif type_of_btn_clicked == "payment_form"
-            p "===========params for payment done============="
+            p "===========params for payment done from lender side============="
             present_in_tag_a_bill_table = TagABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id], lender:current_user.id)
             present_in_split_a_bill_table = SplitABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id] , lender:current_user.id)
             if present_in_tag_a_bill_table
@@ -93,7 +93,7 @@ class ExpenseController < ApplicationController
                 p "Expense not found in any table."
             end
         else
-            p "Something Happened I don't know anything about"
+            p "Something Happened I don't know anything about it"
         end
     end
     def pay_bill
