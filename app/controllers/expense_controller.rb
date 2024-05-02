@@ -81,7 +81,7 @@ class ExpenseController < ApplicationController
             else
                 p "Expense not found in any table."
             end
-        elsif type_of_btn_clicked == "payment_form"
+        elsif type_of_btn_clicked == "payment_from"
             p "===========params for payment done from lender side============="
             present_in_tag_a_bill_table = TagABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id], lender:current_user.id)
             present_in_split_a_bill_table = SplitABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id] , lender:current_user.id)
