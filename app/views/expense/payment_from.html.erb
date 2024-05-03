@@ -1,0 +1,111 @@
+<%= link_to "Back" , expense_show_expenses_path,class:"button-24"%>
+
+<style>
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:cursive;
+    font-size:2rem;
+}   
+
+.maindiv{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    flex-direction:row;
+}
+/* .unpaid{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background-color:#FF7ED4;
+    margin:10px;
+    border-radius:10px;
+} */
+.paid{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:row;
+    background-color:#C5EBAA;
+    margin:10px;
+    border-radius:10px; 
+}
+/* .borrower{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background-color:#FB9AD1;
+    margin:10px;
+    border-radius:10px;
+} */
+.heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    flex-direction:row;
+    font-family:cursive;
+}
+.all_unpaid{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    flex-direction:row;
+    margin:10px;
+    border-radius:10px;
+    background-color:#FFEBB2;
+}
+.all-pending{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    flex-direction:row;
+    margin:10px;
+    border-radius:10px;
+    background-color:#FF71CD;
+}
+
+</style>
+
+<h1 class="header">Here You Can See All Pending Expense !</h1>
+
+
+
+
+
+<%# <%10.times do |val|%> 
+
+<div class="maindiv">
+    
+    <div class="unpaid">
+        <%@bill_from_a_person.each do |expense|%>
+            <div class="all_unpaid">
+                <ul class="list">
+                    <div class="card">
+                        <div class="logo">📌</div>
+                        <div class="person"><%=User.find(expense.borrower).name%></div>
+                        <div class="person"><%=expense.amount%></div>
+                        <div class="datetime"><%=expense.date_and_time%></div>
+                        <div class="person"><%=expense.category%></div>
+                        <div class="person"><%=expense.payment_type%></div>
+                        <div class="remarks"><%=expense.remarks%></div>
+                    </div>
+                </ul>	
+            
+                <div>
+                    <%# <%if expense.payment_status = ""%> 
+                    
+                    <%= link_to 'DELETE', expense_show_expenses_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id,type_of_btn:"lender_delete_request") , class: 'button-24'%>
+                    <%= link_to 'PAYMENT DONE', expense_show_expenses_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id,type_of_btn:"payment_from") , class: 'button-24'%>
+                </div>
+            </div>
+        <%end%>
+    </div>
+
+    
+
+</div>
+<%# <%end%> 

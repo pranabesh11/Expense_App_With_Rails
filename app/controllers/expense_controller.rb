@@ -53,6 +53,21 @@ class ExpenseController < ApplicationController
         p "****************"
     end
 
+    def payment_from
+        tag_bill_from_a_person_from = TagABill.where(lender: current_user.id.to_s)
+        split_bill_from_a_person_from = SplitABill.where(lender:current_user.id.to_s)
+        @bill_from_a_person = tag_bill_from_a_person_from + split_bill_from_a_person_from
+        
+    end
+    def payment_to
+        tag_bill_from_a_person_to = TagABill.where(borrower: current_user.id.to_s)
+        split_bill_from_a_person_to = SplitABill.where(borrower:current_user.id.to_s)
+        @bill_to_a_person = tag_bill_from_a_person_to + split_bill_from_a_person_to
+    end
+    def payment_done
+
+    end
+
     def show_expenses
         p "==========this is params =============="
         tag_bill_from_a_person_from = TagABill.where(lender: current_user.id.to_s)
