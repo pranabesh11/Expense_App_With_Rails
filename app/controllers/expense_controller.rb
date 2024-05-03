@@ -95,6 +95,38 @@ class ExpenseController < ApplicationController
         else
             p "Something Happened I don't know anything about it"
         end
+        p "==========*****=============params for delete request============****=============="
+        p params[:lender]
+        p params[:borrower]
+        p params[:unique_expense_id]
+        p params[:type_of_btn]
+        # this code is for delete btn
+        if type_of_btn_clicked == "borrower_delete_request"
+            p "===========params for delete from borrower side============="
+            present_in_tag_a_bill_table = TagABill.find_by(lender: params[:lender], unique_expense_id: params[:unique_expense_id], borrower:current_user.id)
+            present_in_split_a_bill_table = SplitABill.find_by(lender: params[:lender], unique_expense_id: params[:unique_expense_id] , borrower:current_user.id)
+            if present_in_tag_a_bill_table
+                present_in_tag_a_bill_table.update(delete_status: "Deleted")
+            elsif present_in_split_a_bill_table
+                present_in_split_a_bill_table.update(delete_status: "Deleted")
+            else
+                p "Expense not found in any table."
+            end
+        elsif type_of_btn_clicked == "lender_delete_request"
+            p "===========params for payment done from lender side============="
+            present_in_tag_a_bill_table = TagABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id], lender:current_user.id)
+            present_in_split_a_bill_table = SplitABill.find_by(borrower: params[:borrower], unique_expense_id: params[:unique_expense_id] , lender:current_user.id)
+            if present_in_tag_a_bill_table
+                present_in_tag_a_bill_table.update(delete_status: "Delete_request")
+            elsif present_in_split_a_bill_table
+                present_in_split_a_bill_table.update(delete_status: "Delete_request")
+            else
+                p "Expense not found in any table."
+            end
+        else
+            p "Something Happened in delete button and I don't know anything about it"
+        end
+        # this is the end for delete btn
     end
     def pay_bill
         p "===========params for payment done============="
