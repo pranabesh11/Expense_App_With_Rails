@@ -82,6 +82,7 @@
     
     <div class="unpaid">
         <%@bill_from_a_person.each do |expense|%>
+            <%if expense.payment_status != "Payment Done"%>
             <div class="all_unpaid">
                 <ul class="list">
                     <div class="card">
@@ -96,12 +97,11 @@
                 </ul>	
             
                 <div>
-                    <%# <%if expense.payment_status = ""%> 
-                    
-                    <%= link_to 'DELETE', expense_show_expenses_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id,type_of_btn:"lender_delete_request") , class: 'button-24'%>
-                    <%= link_to 'PAYMENT DONE', expense_show_expenses_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id,type_of_btn:"payment_from") , class: 'button-24'%>
+                    <%= link_to 'DELETE', expense_payment_from_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id,type_of_btn:"lender_delete_request") , class: 'button-24'%>
+                    <%= link_to 'PAYMENT DONE', expense_payment_from_path(borrower:expense.borrower,unique_expense_id: expense.unique_expense_id,type_of_btn:"payment_from") , class: 'button-24'%>
                 </div>
             </div>
+            <%end%>
         <%end%>
     </div>
 

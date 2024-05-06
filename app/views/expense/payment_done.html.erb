@@ -2,76 +2,72 @@
 
 
 <style>
-.header{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:cursive;
-    font-size:2rem;
-}   
+    .maindiv {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Center aligns the cards */
+        padding: 20px;
+        background-color: #f4f4f4; /* Light grey background for the overall container */
+    }
 
-.maindiv{
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    flex-direction:row;
-}
-/* .unpaid{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background-color:#FF7ED4;
-    margin:10px;
-    border-radius:10px;
-} */
-.paid{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:row;
-    background-color:#C5EBAA;
-    margin:10px;
-    border-radius:10px; 
-}
-/* .borrower{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background-color:#FB9AD1;
-    margin:10px;
-    border-radius:10px;
-} */
-.heading{
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    flex-direction:row;
-    font-family:cursive;
-}
-.all_unpaid{
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    flex-direction:row;
-    margin:10px;
-    border-radius:10px;
-    background-color:#FFEBB2;
-}
-.all-pending{
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    flex-direction:row;
-    margin:10px;
-    border-radius:10px;
-    background-color:#FF71CD;
-}
+    .paid {
+        width: 100%;
+        max-width: 600px; /* Maximum width of the cards */
+        margin-bottom: 20px; /* Space between each card */
+    }
 
+    .list {
+        list-style-type: none; /* Removes default list styling */
+        margin: 0;
+        padding: 0;
+    }
+
+    .card {
+        background-color: #fff; /* White background for the card */
+        border: 1px solid #ddd; /* Subtle border for the card */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Slight shadow for 3D effect */
+        padding: 20px; /* Padding within the card */
+    }
+
+    .card > div {
+        margin-bottom: 10px; /* Space between each row */
+    }
+
+    .logo {
+        font-size: 24px; /* Size of the checkmark emoji */
+        color: #4CAF50; /* Green color indicating success/completion */
+        text-align: center; /* Center-align the logo */
+        margin-bottom: 20px; /* Extra space below the logo */
+    }
+
+    .card > div span {
+        font-weight: bold; /* Make the label bold */
+        margin-right: 10px; /* Space between the label and the value */
+    }
+
+    .borrower, .lender, .amount, .dateandtime, .category, .paymenttype, .remarks {
+        background-color: #e8e8e8; /* Light grey background for each item */
+        padding: 8px; /* Padding around text */
+        border-radius: 4px; /* Slightly rounded corners for the fields */
+        display: flex; /* Using flex to align label and value */
+        align-items: center; /* Center items vertically */
+    }
+
+    .remarks {
+        color: #555; /* Darker font color for emphasis */
+        font-style: italic; /* Italicize remarks */
+    }
+    .header{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
 </style>
 
-<h1 class="header">Here You Can See All Expense !</h1>
+
+
+<h1 class="header">Here You Can See All Expenses You are payed Off !</h1>
 
 
 
@@ -80,28 +76,21 @@
 <%# <%10.times do |val|%> 
 
 <div class="maindiv">
-    
-    
-    
-    
-    <div class="paid">
-        <ul class="list">
-			<div class="card">
-				<div class="logo">✅</div>
-				<div class="person">borrower</div>
-                <div class="person">lender</div>
-                <div class="person">Amount</div>
-                <div class="person">datetime</div>
-                <div class="person">category</div>
-                <div class="person">payment type</div>
-				<div class="remarks">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, voluptatem.</div>
-			</div>
-		</ul>	
-    
-        <%# <div>
-            <button class="button-24">DELETE</button>
-        </div> %>
-    </div>
-
+    <%@bill_done_to_a_person.each do |done_payment|%>
+            <div class="paid">
+                <ul class="list">
+                    <div class="card">
+                        <div class="logo">✅</div>
+                        <div class="borrower"><span>Borrower :</span><%=User.find(done_payment.borrower).name%></div>
+                        <div class="lender"><span>Lender :</span><%=User.find(done_payment.lender).name%></div>
+                        <div class="amount"><span>Amount :</span><%=done_payment.amount%></div>
+                        <div class="dateandtime"><span>Date And Time :</span><%=done_payment.date_and_time%></div>
+                        <div class="category"><span>Category :</span><%=done_payment.category%></div>
+                        <div class="paymenttype"><span>payment Type :</span><%=done_payment.payment_type%></div>
+                        <div class="remarks"><span>Remarks :</span><%=done_payment.remarks%></div>
+                    </div>
+                </ul>	
+            </div>
+    <%end%>
 </div>
-<%# <%end%> 
+ 
