@@ -1,4 +1,14 @@
 <%= link_to "Back" , users_home_path,class:"button-24"%>
-<%=link_to "PAYMENT FROM", expense_payment_from_path , class:"button-24"%>
-<%=link_to "PAYMENT TO", expense_payment_to_path , class:"button-24"%>
-<%=link_to "PAYMENT DONE", expense_payment_done_path , class:"button-24"%>
+<style>
+    .three_btns{
+        border:1px solid red;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+</style>
+<div class="three_btns">
+    <%=link_to "PAYMENT FROM", expense_payment_from_path , class:"button-24"%>
+    <%=link_to "PAYMENT TO", expense_payment_to_path , class:"button-24"%>
+    <%=link_to "PAYMENT DONE", expense_payment_done_path , class:"button-24"%>
+<div>
