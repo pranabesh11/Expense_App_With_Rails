@@ -222,6 +222,22 @@ class ExpenseController < ApplicationController
         split_bill_from_a_person_to = SplitABill.where(borrower:current_user.id.to_s)
         @bill_to_a_person = tag_bill_from_a_person_to + split_bill_from_a_person_to
 
+
+        # this code is to get all savings money , lending money , borrowed money
+        @my_savings = Item.where(user_id:current_user.id,income_or_expense:"income").sum(:amount)
+        # Using `where.not` to specify the condition
+
+
+        tag_a_bill_total_lended = TagABill.where(lender: current_user.id,payment_status:nil).sum(:amount)
+        split_a_bill_total_lended = SplitABill.where(lender: current_user.id , payment_status:nil).sum(:amount)
+        @total_borrowed_money = tag_a_bill_total_lended + split_a_bill_total_lended
+
+        tag_a_bill_total_borrowed = TagABill.where(borrower:current_user.id,payment_status:nil).sum(:amount)
+        split_a_bill_total_borrowed = SplitABill.where(borrower:current_user.id,payment_status:nil).sum(:amount)
+        @total_lended_money = tag_a_bill_total_borrowed + split_a_bill_total_borrowed
+
+        
+
         # this code is to get all the data 
 
         # code to add payment status
@@ -329,6 +345,7 @@ class ExpenseController < ApplicationController
                     @new_personal_expense.payment_type = params[:payment_type]
                     @new_personal_expense.income_or_expense = params[:income_or_expense]
                     @new_personal_expense.save
+                    redirect_to expense_add_expense_path
                   end
                 end
                

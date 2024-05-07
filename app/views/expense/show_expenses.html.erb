@@ -12,7 +12,22 @@
         top:200px;
         background-color:#0e1630;  
     }
+    .savings{
+        color:white;
+    }
 </style>
+<div class="savings">
+    <h1>My Total Earning</h1>
+    <h1>₹ <%= @my_savings%> RS.</h1>
+</div>
+<div class="savings">
+    <h1>My Total Lended Amount</h1>
+    <h1>₹ <%= @total_borrowed_money%> RS.</h1>
+</div>
+<div class="savings">
+    <h1>My Total Borrowed Amount</h1>
+    <h1>₹ <%= @total_lended_money%> RS.</h1>
+</div>
 <div class="three_btns">
     <%=link_to "PAYMENT FROM", expense_payment_from_path , class:"button-24"%>
     <%=link_to "PAYMENT TO", expense_payment_to_path , class:"button-24"%>
