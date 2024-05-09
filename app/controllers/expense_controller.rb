@@ -238,6 +238,19 @@ class ExpenseController < ApplicationController
 
         
 
+        # this code is to calculate all exppense for this Month only
+        @all_earnings_in_this_month = Item.where(user_id:current_user.id, income_or_expense:"income" , date_and_time:Date.today.beginning_of_month..Date.today).sum(:amount)
+
+        tag_a_bill_total_lended_this_month = TagABill.where(lender: current_user.id,payment_status:nil, date_and_time:Date.today.beginning_of_month..Date.today).sum(:amount)
+        split_a_bill_total_lended_this_month = SplitABill.where(lender: current_user.id , payment_status:nil,date_and_time: Date.today.beginning_of_month..Date.today).sum(:amount)
+        @total_borrowed_money_this_month = tag_a_bill_total_lended_this_month + split_a_bill_total_lended_this_month
+        
+
+        tag_a_bill_total_borrowed_this_month = TagABill.where(borrower:current_user.id,payment_status:nil , date_and_time:Date.today.beginning_of_month..Date.today).sum(:amount)
+        split_a_bill_total_borrowed_this_month = SplitABill.where(borrower:current_user.id,payment_status:nil , date_and_time:Date.today.beginning_of_month..Date.today).sum(:amount)
+        @total_lended_money_this_month = tag_a_bill_total_borrowed_this_month + split_a_bill_total_borrowed_this_month
+
+
         # this code is to get all the data 
 
         # code to add payment status
