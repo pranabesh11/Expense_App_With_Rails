@@ -15,35 +15,56 @@
     .savings{
         color:white;
     }
+    .all_reports{
+        display:flex;
+        flex-direction:row;
+    }
+    .savings{
+        margin:10px;
+    }
 </style>
-<div class="savings">
-    <h1>My Total Earning</h1>
-    <h1>₹ <%= @my_savings%> RS.</h1>
-</div>
-<div class="savings">
-    <h1>My Total Lended Amount</h1>
-    <h1>₹ <%= @total_borrowed_money%> RS.</h1>
-</div>
-<div class="savings">
-    <h1>My Total Borrowed Amount</h1>
-    <h1>₹ <%= @total_lended_money%> RS.</h1>
-</div>
-<hr/>
+<div class="all_reports">
+    <div class="savings">
+        <h1>My Total Earning</h1>
+        <h1>₹ <%= @my_savings%> RS.</h1>
+    </div>
+    <div class="savings">
+        <h1>My Total Lended Amount</h1>
+        <h1>₹ <%= @total_borrowed_money%> RS.</h1>
+    </div>
+    <div class="savings">
+        <h1>My Total Borrowed Amount</h1>
+        <h1>₹ <%= @total_lended_money%> RS.</h1>
+    </div>
+    <hr/>
 
-<div class="savings">
-    <h1>My Total Earning For This Month</h1>
-    <h1>₹ <%= @all_earnings_in_this_month%> RS.</h1>
-</div>
-<div class="savings">
-    <h1>My Total Lended Amount</h1>
-    <h1>₹ <%= @total_borrowed_money_this_month%> RS.</h1>
-</div>
-<div class="savings">
-    <h1>My Total Borrowed Amount</h1>
-    <h1>₹ <%= @total_lended_money_this_month%> RS.</h1>
-</div>
+    <div class="savings">
+        <h1>My Total Earning For This Month</h1>
+        <h1>₹ <%= @all_earnings_in_this_month%> RS.</h1>
+    </div>
+    <div class="savings">
+        <h1>My Total Lended Amount</h1>
+        <h1>₹ <%= @total_borrowed_money_this_month%> RS.</h1>
+    </div>
+    <div class="savings">
+        <h1>My Total Borrowed Amount</h1>
+        <h1>₹ <%= @total_lended_money_this_month%> RS.</h1>
+    </div>
+    <hr>
 
-
+    <div class="savings">
+        <h1>My Total Earning For This Week</h1>
+        <h1>₹ <%= @all_earnings_in_this_week%> RS.</h1>
+    </div>
+    <div class="savings">
+        <h1>My Total Lended Amount</h1>
+        <h1>₹ <%= @total_borrowed_money_this_week%> RS.</h1>
+    </div>
+    <div class="savings">
+        <h1>My Total Borrowed Amount</h1>
+        <h1>₹ <%= @total_lended_money_this_week%> RS.</h1>
+    </div>
+</div>
 <div class="three_btns">
     <%=link_to "PAYMENT FROM", expense_payment_from_path , class:"button-24"%>
     <%=link_to "PAYMENT TO", expense_payment_to_path , class:"button-24"%>

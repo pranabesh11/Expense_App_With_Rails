@@ -250,6 +250,19 @@ class ExpenseController < ApplicationController
         split_a_bill_total_borrowed_this_month = SplitABill.where(borrower:current_user.id,payment_status:nil , date_and_time:Date.today.beginning_of_month..Date.today+1.day).sum(:amount)
         @total_lended_money_this_month = tag_a_bill_total_borrowed_this_month + split_a_bill_total_borrowed_this_month
 
+        # this is for weekly report in this application
+
+        @all_earnings_in_this_week = Item.where(user_id:current_user.id, income_or_expense:"income" , date_and_time:Date.today-7.day..Date.today+1.day).sum(:amount)
+
+        tag_a_bill_total_lended_this_week = TagABill.where(lender: current_user.id,payment_status:nil, date_and_time:Date.today-7.day..Date.today+1.day).sum(:amount)
+        split_a_bill_total_lended_this_week = SplitABill.where(lender: current_user.id , payment_status:nil,date_and_time: Date.today-7.day..Date.today+1.day).sum(:amount)
+        @total_borrowed_money_this_week = tag_a_bill_total_lended_this_month + split_a_bill_total_lended_this_month
+        
+
+        tag_a_bill_total_borrowed_this_week = TagABill.where(borrower:current_user.id,payment_status:nil , date_and_time:Date.today-7.day..Date.today+1.day).sum(:amount)
+        split_a_bill_total_borrowed_this_week = SplitABill.where(borrower:current_user.id,payment_status:nil , date_and_time:Date.today-7.day..Date.today+1.day).sum(:amount)
+        @total_lended_money_this_week = tag_a_bill_total_borrowed_this_week + split_a_bill_total_borrowed_this_week
+
 
         # this code is to get all the data 
 
