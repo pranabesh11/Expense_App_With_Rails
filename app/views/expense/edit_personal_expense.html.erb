@@ -1,0 +1,215 @@
+<%= link_to "Back" , users_home_path,class:"button-24"%>
+
+
+
+  <h1 class="header">Add Personal Expense Here</h1>
+
+    
+
+  <style>
+    .backbtn{
+      height:100px;
+      width:100px;
+
+    }
+    .header{
+      font-size:2rem;
+      font-family:cursive;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  form {
+      max-width: 500px; /* Adjust the max-width as needed to make the form smaller */
+      width: 100%; /* This makes the form take the full width up to its max-width */
+      margin: auto; /* This centers the form horizontally if it's smaller than the container */
+      padding: 20px; /* Add some padding inside the form */
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow around the form */
+      background-color: #fff; /* Optional: sets a background color for the form */
+      border-radius: 8px; /* Optional: rounds the corners of the form */
+  }
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .field {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="datetime-local"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+
+  .form-group {
+    background-color: #f4f4f4;
+    padding: 30px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+
+  /* input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #218838;
+  } */
+  /* Existing styles... */
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* New style for radio buttons */
+.radio-buttons {
+    flex-direction: row;
+    align-items: center; /* To align items vertically center */
+}
+
+.label, .input, select {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* CSS */
+.remove-form-btn {
+  appearance: none;
+  background-color: #ff4742;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.remove-form-btn:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.remove-form-btn:hover {
+  background-color: #ff4742;
+}
+
+.remove-form-btn:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.remove-form-btn:disabled {
+  background-color: #ff4742;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.remove-form-btn:active {
+  background-color: #ff4742;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.btn-div{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+  
+</style>
+
+
+<div class="form-container">
+  <%# <%=  'form1' %>
+  <%# this is starting of this form %>
+  <%= form_tag "edit_personal_expense" do %>
+
+    <%=hidden_field_tag "personnel_id", @personnel_id%>
+    <div class="field radio-buttons">
+      <%= label_tag(:income_or_expense, "Income or Expense:") %>
+      <%= radio_button_tag(:income_or_expense, 'income') %>
+      <%= label_tag(:income_or_expense_income, "Income") %>
+      <%= radio_button_tag(:income_or_expense, 'expense') %>
+      <%= label_tag(:income_or_expense_expense, "Expense") %>
+    </div>
+
+    <div class="field">
+      <%= label_tag(:date_and_time, "Date and Time:") %>
+      <%= datetime_field_tag(:date_and_time) %>
+    </div>
+    <div class="field">
+      <%= label_tag(:category, "Category:") %>
+      <%= select_tag(:category, options_for_select(["select category type👇",'market🧺', 'online📱', 'travel✈️', 'occassional🫂'])) %>
+    </div>
+    <div class="field">
+      <%= label_tag(:payment_type, "Payment Type:") %>
+      <%= select_tag(:payment_type, options_for_select(["select payment type👇",'cash💰', 'online📱', 'card💳', 'bank transfer🏦', 'cheque📇'])) %>
+    </div>
+    <!--this is for new form-->
+
+      <div id="forms-container">
+        <div class="form-group" id="form-group-0">
+          <%= label_tag 'field_one[0]', 'Item Name:' %>
+          <%= text_field_tag 'field_one[]', nil, id: 'field_one_0' %>
+          <%= label_tag 'field_two[0]', 'Amount:' %>
+          <%= number_field_tag 'field_two[]', nil, id: 'field_two_0' %>     
+        </div>
+      </div>
+
+    <!--end of this form-->
+    <div class="field">
+      <%= label_tag(:remarks, "Remarks:") %>
+      <%= text_field_tag(:remarks) %>
+    </div>
+    <div class="btn-div">
+      <%= submit_tag("Create Item", class:'button-24') %>
+    </div>
+  <% end %>
+</div>
