@@ -1,0 +1,30 @@
+<%= link_to "Back" , expense_show_expenses_path,class:"button-24"%>
+<style>
+    .card{
+        height:100px;
+        width:20vw;
+        background-color:cyan;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:10px;
+    }
+    .main{
+       display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column; 
+    }
+    .card p{
+        margin:10px;
+    }
+</style>
+<div class="main">
+    <h1>My Expense</h1>
+    <%@my_expense.each do |expense|%>
+        <div class="card">
+            <p><%=expense.item_name%></p>
+            <p><%=expense.amount%></p>
+        </div>
+    <%end%>
+</div>

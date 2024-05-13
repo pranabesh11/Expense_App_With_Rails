@@ -213,6 +213,18 @@ class ExpenseController < ApplicationController
         @bill_done_to_a_person = tag_bill_from_a_person_to + split_bill_from_a_person_to
     end
 
+    def personalexpense
+        @my_expense = Item.where(income_or_expense:"expense").reverse
+    end
+
+    def personalincome
+        @my_income = Item.where(income_or_expense:"income").reverse
+    end
+
+    def edit_personal_expense
+        
+    end
+
     def show_expenses
         p "==========this is params =============="
         tag_bill_from_a_person_from = TagABill.where(lender: current_user.id.to_s)
@@ -371,7 +383,7 @@ class ExpenseController < ApplicationController
                     @new_personal_expense.payment_type = params[:payment_type]
                     @new_personal_expense.income_or_expense = params[:income_or_expense]
                     @new_personal_expense.save
-                    redirect_to expense_add_expense_path
+                    redirect_to users_index_path
                   end
                 end
                

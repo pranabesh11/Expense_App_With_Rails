@@ -1,0 +1,32 @@
+<%= link_to "Back" , expense_show_expenses_path,class:"button-24"%>
+<style>
+    .card{
+        height:100px;
+        width:20vw;
+        background-color:cyan;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:10px;
+    }
+    .main{
+       display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column; 
+    }
+    .card p{
+        margin:10px;
+    }
+</style>
+<div class="main">
+    <h1>My Income</h1>
+    <%@my_income.each do |income|%>
+        <div class="card">
+            <p><%=income.item_name%></p>
+            <p><%=income.amount%></p>
+            <%= link_to "EDIT" , expense_edit_personal_expense_path(user_id:current_user.id ,item_id:income.id ),class:"button-24"%>
+            <%= link_to "DELETE" , expense_personalincome_path(item_id:income.id),class:"button-24"%>
+        </div>
+    <%end%>
+</div>
